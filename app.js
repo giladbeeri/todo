@@ -8,7 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var TaskProvider = require('./taskprovider-memory').TaskProvider;
+var TaskProvider = require('./taskprovider-mongodb').TaskProvider;
 
 var app = express();
 
@@ -30,7 +30,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var taskProvider = new TaskProvider();
+var taskProvider = new TaskProvider('localhost', 27017);
 
 app.get('/', function(req, res){
     taskProvider.findAll(function(error, docs){
