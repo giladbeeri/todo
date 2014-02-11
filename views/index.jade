@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+      div
+        - console.log(tasks)
+      div
+    - each task in tasks
+      div.task
+        div.creation_date = task.creation_date
+        div.content
+          #a(href="/todo/" + task._id) != task.content
