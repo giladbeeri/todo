@@ -5,6 +5,6 @@ block content
   #tasks
     - each task in tasks
       div.task
-        div.creation_date = task.creation_date
+        div.creation_date= task.creation_date
         div.content
-          #a(href="/todo/" + task._id) != task.content
+          a(href="/todo/" + task._id)!= task.content
