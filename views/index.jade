@@ -2,9 +2,7 @@ extends layout
 
 block content
   h1= title
-      div
-        - console.log(tasks)
-      div
+  #tasks
     - each task in tasks
       div.task
         div.creation_date = task.creation_date
