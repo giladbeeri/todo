@@ -41,6 +41,17 @@ app.get('/', function(req, res){
     });
 });
 
+app.post('/', function(req, res) {
+   taskProvider.save({
+       content: req.param('task_content'),
+       isCompleted: false,
+       owner: 'John Doe',
+       due_date: new Date()
+   }, function(error, docs) {
+       res.redirect('/');
+   });
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

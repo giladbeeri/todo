@@ -10,6 +10,9 @@ TaskProvider.prototype.findAll = function(callback) {
 TaskProvider.prototype.save = function(tasks, callback) {
     var task = null;
     
+    if(typeof(tasks.length) == "undefined")
+        tasks = [tasks];
+    
     for (var i = 0; i < tasks.length; i++) {
         task = tasks[i];
         task._id = taskCounter++;
@@ -22,9 +25,9 @@ TaskProvider.prototype.save = function(tasks, callback) {
 };
 
 defaultTasks = [
-{content: "Complete this project", owner: "Sammy Brister", isCompleted: false, due_date: new Date(2014, 3, 1) },
-{content: "Finish your homework", owner: "Sammy Brister", isCompleted: false, due_date: new Date(2014, 2, 28) },
-{content: "Go to sleep", owner: "Sammy Brister", isCompleted: false, due_date: new Date() }
+{content: "Complete this project", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 3, 1) },
+{content: "Finish your homework", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 2, 28) },
+{content: "Go to sleep", owner: "John Doe", isCompleted: false, due_date: new Date() }
 ];
 
 new TaskProvider().save(defaultTasks, function(){});
