@@ -5,10 +5,10 @@ block content
   #new_task
     form(method="post")
       div
-        span Add:
+        span New Task
         input(type="text", name="task_content", id="newTaskContent")
       div#newTaskSubmit
-        input(type="submit", value="Create")
+        input(type="submit", value="Add")
   #tasks
     - each task in tasks
       div.task
