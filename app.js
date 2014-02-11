@@ -33,7 +33,7 @@ if ('development' == app.get('env')) {
 var taskProvider = new TaskProvider();
 
 app.get('/', function(req, res){
-    taskProvider.getAll(function(error, docs){
+    taskProvider.findAll(function(error, docs){
         res.render('index.jade', {
             title: 'Shared TODO',
             tasks: docs

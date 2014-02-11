@@ -3,7 +3,7 @@ var taskCounter = 1;
 TaskProvider = function() {};
 TaskProvider.prototype.data = [];
 
-TaskProvider.prototype.getAll = function(callback) {
+TaskProvider.prototype.findAll = function(callback) {
     callback(null, this.data);
 };
 
