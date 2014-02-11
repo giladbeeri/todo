@@ -48,4 +48,15 @@ TaskProvider.prototype.save = function(tasks, callback) {
     });
 };
 
+TaskProvider.prototype.remove = function(tasks, callback) {
+    this.getCollection(function(error, task_collection) {
+       if (error) callback(error);
+       else {
+           task_collection.remove(tasks, function() {
+              callback(null, tasks); 
+           });
+       } 
+    });
+};
+
 exports.TaskProvider = TaskProvider;

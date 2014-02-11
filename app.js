@@ -30,9 +30,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+var ROOT = '/todo';
+
 var taskProvider = new TaskProvider('localhost', 27017);
 
-app.get('/', function(req, res){
+app.get(ROOT, function(req, res){
     taskProvider.findAll(function(error, docs){
         res.render('index.jade', {
             title: 'Shared TODO',
@@ -41,15 +43,24 @@ app.get('/', function(req, res){
     });
 });
 
-app.post('/', function(req, res) {
+app.post(ROOT, function(req, res) {
    taskProvider.save({
        content: req.param('task_content'),
        isCompleted: false,
        owner: 'John Doe',
        due_date: new Date()
    }, function(error, docs) {
-       res.redirect('/');
+       res.redirect(ROOT);
    });
+});
+
+app.del(ROOT + '/:todo_id', function(req, res) {
+    taskProvider.remove({ _id: req_params.todo_id }, function(error, task) {
+        if (error)
+            res.send(error);
+        
+        res.redirect(ROOT);
+    });
 });
 
 http.createServer(app).listen(app.get('port'), function(){
