@@ -31,8 +31,11 @@ TaskProvider.prototype.save = function(tasks, callback) {
     });
 };
 
-TaskProvider.prototype.remove = function(tasks, callback) {
-    
+TaskProvider.prototype.remove = function(taskId, callback) {
+    this.Task.remove({ _id: taskId }, function(error, task) {
+       if (error) callback(error);
+       else callback(null, tasks); 
+    });
 };
 
 exports.TaskProvider = TaskProvider;
