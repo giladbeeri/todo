@@ -11,8 +11,7 @@ block content
         input(type="submit", value="Add")
   #tasks
     - each task in tasks
-      input(type="checkbox")
       div.task
-        div.creation_date= task.creation_date
+        input.taskCheck(type="checkbox", name= "cb_" + task._id, id="cb_" + task._id, value="remove")
         div.content
           a(href="/todo/" + task._id)!= task.content
