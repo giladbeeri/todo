@@ -1,6 +1,9 @@
+default-font-size = 16px
+hover-delta = 5px
+
 body
   font-family "Helvetica Neue", "Lucida Grande", "Arial"
-  font-size 13px
+  font-size default-font-size
   text-align center
   text-stroke 1px rgba(255, 255, 255, 0.1)
   color #555
@@ -24,6 +27,12 @@ h1
       font-weight bold
       text-decortaion underline
       background-color #eee
-	.taskCheck
+	.removeTask a
+	  text-decoration none
 	  float left
-    
+	  width 20px
+	  color red
+	  font-family "Jolly Lodger", cursive
+	  &:hover
+	    font-size default-font-size + hover-delta
+	    color #FF7070

@@ -12,6 +12,7 @@ block content
   #tasks
     - each task in tasks
       div.task
-        input.taskCheck(type="checkbox", name= "cb_" + task._id, id="cb_" + task._id, value="remove")
+        span.removeTask
+          a(href="") X
         div.content
           a(href="/todo/" + task._id)!= task.content
