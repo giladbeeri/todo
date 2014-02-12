@@ -8,7 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var TaskProvider = require('./taskprovider-mongodb').TaskProvider;
+var TaskProvider = require('./taskprovider-mongoose').TaskProvider;
 
 var app = express();
 

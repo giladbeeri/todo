@@ -11,6 +11,7 @@ block content
         input(type="submit", value="Add")
   #tasks
     - each task in tasks
+      input(type="checkbox")
       div.task
         div.creation_date= task.creation_date
         div.content
