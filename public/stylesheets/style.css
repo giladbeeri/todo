@@ -32,14 +32,17 @@ h1 {
   text-decortaion: underline;
   background-color: #eee;
 }
-.removeTask a {
+#tasks .task .removeTask {
+  text-align: center;
+}
+#tasks .task .removeTask a {
   text-decoration: none;
-  float: left;
   width: 20px;
+  float: left;
   color: #f00;
   font-family: "Jolly Lodger", cursive;
 }
-.removeTask a:hover {
+#tasks .task .removeTask a:hover {
   font-size: 21px;
   color: #ff7070;
 }

@@ -11,8 +11,8 @@ block content
         input(type="submit", value="Add")
   #tasks
     - each task in tasks
-      div.task
+      div.task(id=task._id)
         span.removeTask
-          a(href="") X
+          a(href="#") X
         div.content
           a(href="/todo/" + task._id)!= task.content
