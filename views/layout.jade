@@ -6,6 +6,7 @@ html(ng-app="todoApp")
     link(href='http://fonts.googleapis.com/css?family=Jolly+Lodger', rel='stylesheet', type='text/css')
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js')
     //script(type='text/javascript', src='http://code.jquery.com/jquery-2.1.0.min.js')
+    script(type='text/javascript', src='/js/controllers.js')
     block head 
-  body
+  body(ng-controller="TaskCtrl")
     block content

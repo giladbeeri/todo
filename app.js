@@ -22,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
+app.use(express.bodyParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -50,22 +51,35 @@ app.get(ROOT + '/ang', function(req, res) {
 });
 
 app.post(ROOT, function(req, res) {
-   taskProvider.save({
-       content: req.param('task_content'),
-       isCompleted: false,
-       owner: 'John Doe',
-       due_date: new Date()
-   }, function(error, docs) {
-       res.redirect(ROOT);
-   });
+    taskProvider.save({
+        content: req.param('task_content'),
+        isCompleted: false,
+        owner: 'John Doe',
+        due_date: new Date()
+    }, function(error, docs) {
+        res.redirect(ROOT);
+    });
+});
+
+app.post(ROOT + '/ang', function(req, res) {
+    taskProvider.save({
+        content: req.body.content,
+        isCompleted: false,
+        owner: 'John Doe',
+        due_date: new Date()
+    }, function(err, task) {
+        taskProvider.findAll(function(err, tasks) {
+           res.json(tasks); 
+        });
+    });
 });
 
 app.del(ROOT + '/:todo_id', function(req, res) {
-    taskProvider.remove({ _id: req_params.todo_id }, function(error, task) {
+    taskProvider.remove({ _id: req_params.todo_id }, function(error, tasks) {
         if (error)
             res.send(error);
         
-        res.redirect(ROOT);
+        res.json({tasks: tasks});
     });
 });
 
