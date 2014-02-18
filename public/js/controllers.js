@@ -1,5 +1,5 @@
-var todoModule = angular.module('todoApp', []);
+var todoControllers = angular.module('todoControllers', []);
 
-todoApp.controller('TaskCtrl', ['$scope', function($scope) {
+todoControllers.controller('TaskCtrl', ['$scope', function($scope) {
     $scope.todos = [];
 }]);
