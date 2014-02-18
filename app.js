@@ -43,6 +43,12 @@ app.get(ROOT, function(req, res) {
     });
 });
 
+app.get(ROOT + '/ang', function(req, res) {
+    taskProvider.findAll(function(err, docs) {
+        res.json({tasks: docs});      
+    });
+});
+
 app.post(ROOT, function(req, res) {
    taskProvider.save({
        content: req.param('task_content'),
