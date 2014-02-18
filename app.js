@@ -44,25 +44,14 @@ app.get(ROOT, function(req, res) {
     });
 });
 
-app.get(ROOT + '/ang', function(req, res) {
+app.get(ROOT + '/list', function(req, res) {
     taskProvider.findAll(function(err, docs) {
         res.json({tasks: docs});      
     });
 });
 
 app.post(ROOT, function(req, res) {
-    taskProvider.save({
-        content: req.param('task_content'),
-        isCompleted: false,
-        owner: 'John Doe',
-        due_date: new Date()
-    }, function(error, docs) {
-        res.redirect(ROOT);
-    });
-});
-
-app.post(ROOT + '/ang', function(req, res) {
-    taskProvider.save({
+   taskProvider.save({
         content: req.body.content,
         isCompleted: false,
         owner: 'John Doe',
@@ -72,6 +61,15 @@ app.post(ROOT + '/ang', function(req, res) {
            res.json(tasks); 
         });
     });
+/*  taskProvider.save({
+        content: req.param('task_content'),
+        isCompleted: false,
+        owner: 'John Doe',
+        due_date: new Date()
+    }, function(error, docs) {
+        res.redirect(ROOT);
+    });
+*/
 });
 
 app.del(ROOT + '/:todo_id', function(req, res) {
