@@ -12,12 +12,16 @@ block content
       div
         | Content: {{ task.content }}
   #tasks
-    - each task in tasks
-      div.task(id=task._id)
-        span.removeTask
-          a(href="#") X
-        div.content
-          a(href="/todo/" + task._id)!= task.content
-  #angular
-    p {{ tasks.length }}
-    p {{ tasks }}
+    p There are {{ tasks.length }} tasks!
+    .task(ng-repeat="task in tasks" id="{{ task._id }}")
+      span.removeTask
+        a(href="#") X
+      .content
+        {{ task.content }}
+    // - each task in tasks
+    //  div.task(id=task._id)
+    //    span.removeTask
+    //      a(href="#") X
+    //    div.content
+    //      a(href="/todo/" + task._id)!= task.content
+    
