@@ -30,24 +30,18 @@ h1 {
 }
 #tasks .task .completeTask,
 #tasks .task .removeTask {
-  padding: 0px 8px 0px 8px;
+  width: 25px;
   text-align: center;
   vertical-align: text-top;
 }
-#tasks .task .completeTask,
-#tasks .task .removeTask,
-#tasks .task .content {
-  margin-left: 10px;
-}
-#tasks .task .completeTask:hover,
-#tasks .task .removeTask:hover {
+#tasks .task .completeTask span:hover,
+#tasks .task .removeTask span:hover {
   cursor: pointer;
 }
 #tasks .task .completeTask {
   color: #49c94b;
 }
 #tasks .task .completeTask:hover {
-  font-size: 21px;
   color: #abe0ab;
 }
 #tasks .task .removeTask {
@@ -59,4 +53,7 @@ h1 {
 }
 #tasks .task .content {
   font-weight: bold;
+}
+#tasks .task:hover {
+  color: #3d2399;
 }

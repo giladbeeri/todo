@@ -1,5 +1,5 @@
 default-font-size = 16px
-hover-delta = 5px
+hover-delta = 10px
 
 body
   font-family "Helvetica Neue", "Lucida Grande", "Arial"
@@ -25,25 +25,26 @@ h1
     margin 20px
     width 300px
     .completeTask, .removeTask
-      padding 0px 8px 0px 8px
+      width 25px
       text-align center
       vertical-align text-top
-    .completeTask, .removeTask, .content
-      margin-left 10px
-    .completeTask:hover, .removeTask:hover
-      cursor pointer
+      span:hover
+        // commented out since it pushes the next row down (failed to prevent it)
+        //font-size default-font-size + hover-delta
+        cursor pointer
     .completeTask
       color #49C94B
       &:hover
-        font-size default-font-size + hover-delta
         color #ABE0AB
     .removeTask
       color red
       font-family "Jolly Lodger", cursive
       &:hover
-        //font-size default-font-size + hover-delta
         color #FF7070
     .content
       font-weight bold
+    &:hover
+      color #3D2399
+
 
 
