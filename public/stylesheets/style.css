@@ -36,6 +36,7 @@ h1 {
   text-align: center;
 }
 #tasks .task .removeTask a {
+  cursor: pointer;
   text-decoration: none;
   width: 20px;
   float: left;
