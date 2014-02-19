@@ -12,6 +12,9 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
     };
     
     $scope.deleteTask = function(taskId) {
-        console.log("Angular: delete task #" + taskId);  
+        console.log("Angular: delete task #" + taskId);
+        $http.delete('/todo/' + taskId).success(function(data) {
+            $scope.tasks = data;
+        });  
     };
 }]);

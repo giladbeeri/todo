@@ -32,6 +32,7 @@ TaskProvider.prototype.save = function(tasks, callback) {
 };
 
 TaskProvider.prototype.remove = function(taskId, callback) {
+    console.log("TaskProvider: Remove task #" + taskId);
     this.Task.remove({ _id: taskId }, function(error, tasks) {
        if (error) callback(error);
        else callback(null, tasks); 

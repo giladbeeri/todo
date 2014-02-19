@@ -73,11 +73,13 @@ app.post(ROOT, function(req, res) {
 });
 
 app.del(ROOT + '/:todo_id', function(req, res) {
-    taskProvider.remove({ _id: req_params.todo_id }, function(error, tasks) {
-        if (error)
+    taskProvider.remove(req.params["todo_id"], function(err, tasks) {
+        if (err)
             res.send(error);
         
-        res.json({tasks: tasks});
+        taskProvider.findAll(function(err, tasks) {
+            res.json(tasks); 
+        });
     });
 });
 
