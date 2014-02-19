@@ -21,22 +21,22 @@ h1 {
   margin-right: auto;
   width: 320px;
 }
-#tasks ul {
-  list-style-type: none;
-  margin-left: 0px;
-  padding-left: 0px;
+#tasks table {
+  background-color: #eee;
 }
 #tasks .task {
   margin: 20px;
-  background-color: #eee;
   width: 300px;
-  display: block;
+}
+#tasks .task .completeTask,
+#tasks .task .removeTask {
+  padding: 0px 8px 0px 8px;
+  text-align: center;
+  vertical-align: text-top;
 }
 #tasks .task .completeTask,
 #tasks .task .removeTask,
 #tasks .task .content {
-  display: inline;
-  min-width: 30px;
   margin-left: 10px;
 }
 #tasks .task .completeTask:hover,
@@ -47,10 +47,10 @@ h1 {
   color: #49c94b;
 }
 #tasks .task .completeTask:hover {
+  font-size: 21px;
   color: #abe0ab;
 }
 #tasks .task .removeTask {
-  text-align: center;
   color: #f00;
   font-family: "Jolly Lodger", cursive;
 }
@@ -59,5 +59,4 @@ h1 {
 }
 #tasks .task .content {
   font-weight: bold;
-  text-decortaion: underline;
 }

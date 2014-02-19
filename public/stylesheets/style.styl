@@ -19,25 +19,23 @@ h1
   margin-left auto
   margin-right auto
   width 320px
-  ul
-    list-style-type none
-    margin-left 0px
-    padding-left 0px
+  table
+    background-color #eee
   .task
     margin 20px
-    background-color #eee
     width 300px
-    display block
+    .completeTask, .removeTask
+      padding 0px 8px 0px 8px
+      text-align center
+      vertical-align text-top
     .completeTask, .removeTask, .content
-      display inline
-      min-width 30px
       margin-left 10px
     .completeTask:hover, .removeTask:hover
       cursor pointer
     .completeTask
       color #49C94B
       &:hover
-        //font-size default-font-size + hover-delta
+        font-size default-font-size + hover-delta
         color #ABE0AB
     .removeTask
       color red
@@ -47,4 +45,5 @@ h1
         color #FF7070
     .content
       font-weight bold
-      text-decortaion underline
+
+
