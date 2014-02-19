@@ -55,9 +55,7 @@ var sendAllTasks = function(res) {
 };
 
 app.get(ROOT + '/list', function(req, res) {
-    taskProvider.findAll(function(err, docs) {
-        res.json({tasks: docs});      
-    });
+    sendAllTasks(res)(null);
 });
 
 app.post(ROOT, function(req, res) {
@@ -67,15 +65,6 @@ app.post(ROOT, function(req, res) {
         owner: 'John Doe',
         due_date: new Date()
     }, sendAllTasks(res));
-/*  taskProvider.save({
-        content: req.param('task_content'),
-        isCompleted: false,
-        owner: 'John Doe',
-        due_date: new Date()
-    }, function(error, docs) {
-        res.redirect(ROOT);
-    });
-*/
 });
 
 app.del(ROOT + '/:todo_id', function(req, res) {
