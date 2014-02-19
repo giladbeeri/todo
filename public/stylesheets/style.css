@@ -24,8 +24,13 @@ h1 {
 #tasks .task {
   margin: 20px;
 }
-#tasks .task .creation_date {
-  display: none;
+#tasks .task .completeTask {
+  float: left;
+  color: #49c94b;
+}
+#tasks .task .completeTask:hover {
+  font-size: 21px;
+  color: #abe0ab;
 }
 #tasks .task .content {
   font-weight: bold;
