@@ -21,34 +21,43 @@ h1 {
   margin-right: auto;
   width: 320px;
 }
+#tasks ul {
+  list-style-type: none;
+  margin-left: 0px;
+  padding-left: 0px;
+}
 #tasks .task {
   margin: 20px;
+  background-color: #eee;
+  width: 300px;
+  display: block;
+}
+#tasks .task .completeTask,
+#tasks .task .removeTask,
+#tasks .task .content {
+  display: inline;
+  min-width: 30px;
+  margin-left: 10px;
+}
+#tasks .task .completeTask:hover,
+#tasks .task .removeTask:hover {
+  cursor: pointer;
 }
 #tasks .task .completeTask {
-  float: left;
   color: #49c94b;
 }
 #tasks .task .completeTask:hover {
-  font-size: 21px;
   color: #abe0ab;
+}
+#tasks .task .removeTask {
+  text-align: center;
+  color: #f00;
+  font-family: "Jolly Lodger", cursive;
+}
+#tasks .task .removeTask:hover {
+  color: #ff7070;
 }
 #tasks .task .content {
   font-weight: bold;
   text-decortaion: underline;
-  background-color: #eee;
-}
-#tasks .task .removeTask {
-  text-align: center;
-}
-#tasks .task .removeTask a {
-  cursor: pointer;
-  text-decoration: none;
-  width: 20px;
-  float: left;
-  color: #f00;
-  font-family: "Jolly Lodger", cursive;
-}
-#tasks .task .removeTask a:hover {
-  font-size: 21px;
-  color: #ff7070;
 }

@@ -13,14 +13,14 @@ block content
         | Content: {{ task.content }}
   #tasks
     p There are {{ tasks.length }} tasks!
-    .task(ng-repeat="task in tasks" id="{{ task._id }}")
-      span.completeTask
-        &#x2713
-      span.removeTask
-        a(ng-click="deleteTask(task._id)") X
-      .content
-        {{ task.content }}
-        br
+    ul
+      li.task(ng-repeat="task in tasks" id="{{ task._id }}")
+        span.completeTask
+          &#x2713
+        span.removeTask(ng-click="deleteTask(task._id)") X
+        span.content
+          {{ task.content }}
+          br
     
     
     
