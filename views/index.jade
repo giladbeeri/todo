@@ -15,9 +15,12 @@ block content
     p There are {{ tasks.length }} tasks!
     .task(ng-repeat="task in tasks" id="{{ task._id }}")
       span.removeTask
-        a(href="#") X
+        a(ng-href="#" ng-click="deleteTask(task._id)") X
       .content
         {{ task.content }}
+    
+    
+    
     // - each task in tasks
     //  div.task(id=task._id)
     //    span.removeTask

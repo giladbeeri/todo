@@ -10,4 +10,8 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
             $scope.tasks = data;
         });
     };
+    
+    $scope.deleteTask = function(taskId) {
+        console.log("Angular: delete task #" + taskId);  
+    };
 }]);
