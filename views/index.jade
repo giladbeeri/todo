@@ -15,12 +15,11 @@ block content
     p There are {{ tasks.length }} tasks!
     ul
       li.task(ng-repeat="task in tasks" id="{{ task._id }}")
-        span.completeTask
+        span.completeTask(title="Mark as completed")
           &#x2713
-        span.removeTask(ng-click="deleteTask(task._id)") X
+        span.removeTask(title="Delete", ng-click="deleteTask(task._id)") X
         span.content
           {{ task.content }}
-          br
     
     
     
