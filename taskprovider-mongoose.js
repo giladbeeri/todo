@@ -39,4 +39,22 @@ TaskProvider.prototype.remove = function(taskId, callback) {
     });
 };
 
+TaskProvider.prototype.update = function(taskId, newData, callback) {
+    this.Task.update(
+        { _id: taskId },
+        newData,
+        {},
+        function(err, numAffected) {
+            if (err) callback(err);
+            else callback(null, numAffected);
+        });
+};
+
+TaskProvider.prototype.completeTask = function(taskId, callback) {
+    this.update(taskId, { done: true }, function(err, tasks) {
+        if (err) callback(err);
+        else callback(null, tasks);
+    });  
+};
+
 exports.TaskProvider = TaskProvider;

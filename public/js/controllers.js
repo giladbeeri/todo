@@ -6,7 +6,7 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
     });
     
     $scope.addTask = function(task) {
-        $http.post("/todo", task).success(function(data) {
+        $http.post('/todo', task).success(function(data) {
             $scope.tasks = data;
         });
     };
@@ -17,6 +17,15 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
         // It would be faster, but less reliable in a multi-client environment.
         $http.delete('/todo/' + taskId).success(function(data) {
             $scope.tasks = data;
+        });  
+    };
+    
+    $scope.completeTask = function(taskId) {
+        console.log("Angular: complete task #" + taskId);
+        $http.put('/todo/' + taskId).success(function(data) {
+            $scope.tasks = data;
+        }).error(function(data) {
+            console.log("Failed updating task #" + taskId);
         });  
     };
 }]);

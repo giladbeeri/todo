@@ -83,6 +83,17 @@ app.del(ROOT + '/:todo_id', function(req, res) {
     });
 });
 
+app.put(ROOT + '/:todo_id', function(req, res) {
+    taskProvider.completeTask(req.params["todo_id"], function(err, tasks) {
+        if (err)
+            res.send(error);
+        
+        taskProvider.findAll(function(err, tasks) {
+            res.json(tasks); 
+        });
+    });
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
