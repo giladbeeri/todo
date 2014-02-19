@@ -44,6 +44,16 @@ app.get(ROOT, function(req, res) {
     });
 });
 
+var sendAllTasks = function(res) {
+    return function(err) {
+        if (err) res.send(err);
+        taskProvider.findAll(function(err, tasks) {
+            if (err) res.send(err);
+            res.json(tasks); 
+        }); 
+    };
+};
+
 app.get(ROOT + '/list', function(req, res) {
     taskProvider.findAll(function(err, docs) {
         res.json({tasks: docs});      
@@ -56,11 +66,7 @@ app.post(ROOT, function(req, res) {
         isCompleted: false,
         owner: 'John Doe',
         due_date: new Date()
-    }, function(err, task) {
-        taskProvider.findAll(function(err, tasks) {
-           res.json(tasks); 
-        });
-    });
+    }, sendAllTasks(res));
 /*  taskProvider.save({
         content: req.param('task_content'),
         isCompleted: false,
@@ -73,25 +79,11 @@ app.post(ROOT, function(req, res) {
 });
 
 app.del(ROOT + '/:todo_id', function(req, res) {
-    taskProvider.remove(req.params["todo_id"], function(err, tasks) {
-        if (err)
-            res.send(error);
-        
-        taskProvider.findAll(function(err, tasks) {
-            res.json(tasks); 
-        });
-    });
+    taskProvider.remove(req.params["todo_id"], sendAllTasks(res));
 });
 
 app.put(ROOT + '/:todo_id', function(req, res) {
-    taskProvider.completeTask(req.params["todo_id"], function(err, tasks) {
-        if (err)
-            res.send(error);
-        
-        taskProvider.findAll(function(err, tasks) {
-            res.json(tasks); 
-        });
-    });
+    taskProvider.completeTask(req.params["todo_id"], sendAllTasks(res));
 });
 
 http.createServer(app).listen(app.get('port'), function(){
