@@ -1,22 +1,6 @@
 extends layout
 
-//-
-  A mixin that builds a task table.
-  done - Does the table show done (or opened) tasks
-  tableId - Id for the table
-  
-mixin taskTable(tableId, done) 
-  table(id=tableId)
-    tbody
-      tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "}" id="{{ task._id }}")
-        td.completeTask
-          span(title="Mark as completed", ng-click="completeTask(task._id)") &#x2713
-        td.removeTask
-          span(title="Delete", ng-click="deleteTask(task._id)") X
-        td.content
-          span {{ task.content }}
-        td.finished
-          {{ task.done }}
+include mixins.jade
           
 block content
   h1= title
