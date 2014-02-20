@@ -12,7 +12,7 @@ block content
 
   #tasks
     h2 Tasks
-    p There are {{ tasks.length }} opened tasks
+    p There are {{ (tasks | filter:{done: false}).length }} opened tasks
     table.openTasks
       tbody
         tr.task(ng-repeat="task in tasks | filter:{done: false}" id="{{ task._id }}")
