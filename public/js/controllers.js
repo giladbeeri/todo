@@ -20,8 +20,8 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
         });  
     };
     
-    $scope.completeTask = function(taskId) {
-        console.log("Angular: complete task #" + taskId);
+    $scope.toggleTask = function(taskId) {
+        console.log("Angular: Toggle task #" + taskId);
         $http.put('/todo/' + taskId).success(function(data) {
             $scope.tasks = data;
         }).error(function(data) {

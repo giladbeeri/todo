@@ -50,7 +50,7 @@ TaskProvider.prototype.update = function(taskId, newData, callback) {
         });
 };
 
-TaskProvider.prototype.completeTask = function(taskId, callback) {
+TaskProvider.prototype.toggleTask = function(taskId, callback) {
     this.update(taskId, { done: true }, function(err, tasks) {
         if (err) callback(err);
         else callback(null, tasks);

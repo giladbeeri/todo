@@ -72,7 +72,7 @@ app.del(ROOT + '/:todo_id', function(req, res) {
 });
 
 app.put(ROOT + '/:todo_id', function(req, res) {
-    taskProvider.completeTask(req.params["todo_id"], sendAllTasks(res));
+    taskProvider.toggleTask(req.params["todo_id"], sendAllTasks(res));
 });
 
 http.createServer(app).listen(app.get('port'), function(){

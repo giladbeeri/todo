@@ -28,20 +28,20 @@ h1 {
   margin: 20px;
   min-width: 400px;
 }
-#tasks .task .completeTask,
+#tasks .task .changeTaskState,
 #tasks .task .removeTask {
   width: 25px;
   text-align: center;
   vertical-align: text-top;
 }
-#tasks .task .completeTask span:hover,
+#tasks .task .changeTaskState span:hover,
 #tasks .task .removeTask span:hover {
   cursor: pointer;
 }
-#tasks .task .completeTask {
+#tasks .task .changeTaskState {
   color: #49c94b;
 }
-#tasks .task .completeTask:hover {
+#tasks .task .changeTaskState:hover {
   color: #abe0ab;
 }
 #tasks .task .removeTask {
