@@ -33,6 +33,7 @@ h1 {
   width: 25px;
   text-align: center;
   vertical-align: text-top;
+  font-family: "Jolly Lodger", cursive;
 }
 #tasks .task .toggleTask span:hover,
 #tasks .task .removeTask span:hover {
@@ -46,7 +47,6 @@ h1 {
 }
 #tasks .task .removeTask {
   color: #f00;
-  font-family: "Jolly Lodger", cursive;
 }
 #tasks .task .removeTask:hover {
   color: #ff7070;
@@ -60,4 +60,7 @@ h1 {
 }
 #tasks #closedTasks .content {
   text-decoration: line-through;
+}
+#tasks #closedTasks .toggleTask {
+  color: #b08700;
 }
