@@ -31,26 +31,6 @@ block content
   #tasks
     h2 Tasks
     p There are {{ (tasks | filter:{done: false}).length }} opened tasks
-    table.openTasks
-      tbody
-        tr.task(ng-repeat="task in tasks | filter:{done: false}" id="{{ task._id }}")
-          td.completeTask
-            span(title="Mark as completed", ng-click="completeTask(task._id)") &#x2713
-          td.removeTask
-            span(title="Delete", ng-click="deleteTask(task._id)") X
-          td.content
-            span {{ task.content }}
-          td.finished
-            {{ task.done }}
+    +taskTable('openedTasks', false)
     h2 Completed Tasks
-    table.closedTasks
-      tbody
-        tr.task(ng-repeat="task in tasks | filter:{done: true}" id="{{ task._id }}")
-          td.completeTask
-            span(title="Mark as completed", ng-click="completeTask(task._id)") &#x2713
-          td.removeTask
-            span(title="Delete", ng-click="deleteTask(task._id)") X
-          td.content
-            span {{ task.content }}
-          td.finished
-            {{ task.done }}
+    +taskTable('closedTasks', true)
