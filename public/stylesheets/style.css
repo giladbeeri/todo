@@ -24,6 +24,10 @@ h1 {
 #tasks table {
   background-color: #eee;
 }
+#tasks table thead {
+  background: #999;
+  color: #eee;
+}
 #tasks .task {
   margin: 20px;
   min-width: 400px;

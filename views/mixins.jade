@@ -5,6 +5,12 @@
 
 mixin taskTable(tableId, done) 
   table(id=tableId)
+    thead
+      tr
+        th
+        th
+        th Task
+        th Owner
     tbody
       tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "}")
         td.toggleTask
