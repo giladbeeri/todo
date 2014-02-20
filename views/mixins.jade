@@ -6,7 +6,7 @@
 mixin taskTable(tableId, done) 
   table(id=tableId)
     tbody
-      tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "}" id="{{ task._id }}")
+      tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "}")
         td.completeTask
           span(title="Mark as completed", ng-click="completeTask(task._id)") &#x2713
         td.removeTask
