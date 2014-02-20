@@ -26,7 +26,7 @@ h1 {
 }
 #tasks .task {
   margin: 20px;
-  width: 400px;
+  min-width: 400px;
 }
 #tasks .task .completeTask,
 #tasks .task .removeTask {
@@ -57,4 +57,7 @@ h1 {
 }
 #tasks .task:hover {
   color: #3d2399;
+}
+#tasks #closedTasks .content {
+  text-decoration: line-through;
 }
