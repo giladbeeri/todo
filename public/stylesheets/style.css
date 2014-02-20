@@ -19,7 +19,7 @@ h1 {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
+  width: 450px;
 }
 #tasks table {
   background-color: #eee;
@@ -27,6 +27,10 @@ h1 {
 #tasks .task {
   margin: 20px;
   min-width: 400px;
+}
+#tasks .task:hover {
+  color: #3d2399;
+  background-color: #efeffe;
 }
 #tasks .task .toggleTask,
 #tasks .task .removeTask {
@@ -55,9 +59,10 @@ h1 {
   font-weight: bold;
   width: 350px;
 }
-#tasks .task:hover {
-  color: #3d2399;
-  background-color: #efeffe;
+#tasks .task .owner {
+  min-width: 80px;
+  font-style: italic;
+  font-size: 13px;
 }
 #tasks #closedTasks .content {
   text-decoration: line-through;

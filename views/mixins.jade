@@ -17,3 +17,5 @@ mixin taskTable(tableId, done)
           span(title="Delete", ng-click="deleteTask(task._id)") X
         td.content
           span {{ task.content }}
+        td.owner
+          span {{ task.owner }}

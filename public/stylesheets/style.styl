@@ -18,10 +18,13 @@ h1
   text-align left
   margin-left auto
   margin-right auto
-  width 400px
+  width 450px
   table
     background-color #eee
   .task
+    &:hover
+      color #3D2399
+      background-color #efeffe
     margin 20px
     min-width 400px
     .toggleTask, .removeTask
@@ -44,9 +47,11 @@ h1
     .content
       font-weight bold
       width 350px
-    &:hover
-      color #3D2399
-      background-color #efeffe
+    .owner
+      min-width 80px
+      font-style italic
+      font-size default-font-size - 3
+    
   #closedTasks .content
     text-decoration line-through
   #closedTasks .toggleTask
