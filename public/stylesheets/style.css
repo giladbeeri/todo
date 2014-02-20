@@ -57,6 +57,7 @@ h1 {
 }
 #tasks .task:hover {
   color: #3d2399;
+  background-color: #efeffe;
 }
 #tasks #closedTasks .content {
   text-decoration: line-through;
