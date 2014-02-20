@@ -9,8 +9,7 @@ block content
         input(type="text", name="task_content", id="newTaskContent", placeholder="Task content", ng-model="task.content")
       div#newTaskSubmit
         input(type="submit", value="Add")
-      div
-        | Content: {{ task.content }}
+
   #tasks
     h2 Tasks
     p There are {{ tasks.length }} opened tasks
