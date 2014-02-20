@@ -51,10 +51,20 @@ TaskProvider.prototype.update = function(taskId, newData, callback) {
 };
 
 TaskProvider.prototype.toggleTask = function(taskId, callback) {
-    this.update(taskId, { done: true }, function(err, tasks) {
-        if (err) callback(err);
-        else callback(null, tasks);
-    });  
+    this.Task.find(
+        { _id: taskId },
+        'done',
+        function(taskProvider) {
+            return function(err, tasks) {
+                if (err || !tasks) callback(err, null);
+                else {
+                    taskProvider.update(taskId, { done: !tasks[0].done }, function(err, tasks) {
+                        if (err) callback(err);
+                        else callback(null, tasks);
+                    });            
+                }    
+            };
+        }(this));
 };
 
 exports.TaskProvider = TaskProvider;
