@@ -25,4 +25,14 @@ block content
           td.finished
             {{ task.done }}
     h2 Completed Tasks
-    
+    table.closedTasks
+      tbody
+        tr.task(ng-repeat="task in tasks | filter:{done: true}" id="{{ task._id }}")
+          td.completeTask
+            span(title="Mark as completed", ng-click="completeTask(task._id)") &#x2713
+          td.removeTask
+            span(title="Delete", ng-click="deleteTask(task._id)") X
+          td.content
+            span {{ task.content }}
+          td.finished
+            {{ task.done }}
