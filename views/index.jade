@@ -16,7 +16,7 @@ block content
     p There are {{ tasks.length }} opened tasks
     table.openTasks
       tbody
-        tr.task(ng-repeat="task in tasks" id="{{ task._id }}")
+        tr.task(ng-repeat="task in tasks | filter:{done: false}" id="{{ task._id }}")
           td.completeTask
             span(title="Mark as completed", ng-click="completeTask(task._id)") &#x2713
           td.removeTask
