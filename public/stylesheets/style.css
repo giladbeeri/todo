@@ -19,14 +19,14 @@ h1 {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 320px;
+  width: 400px;
 }
 #tasks table {
   background-color: #eee;
 }
 #tasks .task {
   margin: 20px;
-  width: 300px;
+  width: 400px;
 }
 #tasks .task .completeTask,
 #tasks .task .removeTask {
@@ -53,6 +53,7 @@ h1 {
 }
 #tasks .task .content {
   font-weight: bold;
+  width: 350px;
 }
 #tasks .task:hover {
   color: #3d2399;
