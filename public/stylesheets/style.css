@@ -34,6 +34,7 @@ h1 {
 #tasks table {
   border-collapse: collapse;
   background-color: #eee;
+  min-width: 450px;
 }
 #tasks table thead {
   background: #999;
@@ -41,6 +42,9 @@ h1 {
 }
 #tasks th {
   border: 0px;
+}
+#tasks .empty {
+  width: 25px;
 }
 #tasks .task {
   margin: 20px;
