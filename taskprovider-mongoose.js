@@ -14,8 +14,8 @@ TaskProvider = function(host, port) {
 
 
 TaskProvider.prototype.findAll = function(callback) {
-    this.Task.find(function(error, tasks) {
-       if (error) callback(error);
+    this.Task.find(function(err, tasks) {
+       if (err) callback(err);
        else {
            callback(null, tasks);
        } 
@@ -25,16 +25,16 @@ TaskProvider.prototype.findAll = function(callback) {
 TaskProvider.prototype.save = function(tasks, callback) {
     if (typeof(tasks.length) == "undefined")
         tasks = [tasks];
-    this.Task.create(tasks, function(error, tasks) {
-        if (error) callback(error);
+    this.Task.create(tasks, function(err, tasks) {
+        if (err) callback(err);
         else callback(null, tasks);
     });
 };
 
 TaskProvider.prototype.remove = function(taskId, callback) {
     console.log("TaskProvider: Remove task #" + taskId);
-    this.Task.remove({ _id: taskId }, function(error, tasks) {
-       if (error) callback(error);
+    this.Task.remove({ _id: taskId }, function(err, tasks) {
+       if (err) callback(err);
        else callback(null, tasks); 
     });
 };

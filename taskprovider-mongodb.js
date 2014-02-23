@@ -10,18 +10,18 @@ TaskProvider = function(host, port) {
 };
 
 TaskProvider.prototype.getCollection = function(callback) {
-    this.db.collection('tasks', function(error, task_collection) {
-       if (error) callback(error);
+    this.db.collection('tasks', function(err, task_collection) {
+       if (err) callback(err);
        else callback(null, task_collection);
     });
 };
 
 TaskProvider.prototype.findAll = function(callback) {
-    this.getCollection(function(error, task_collection) {
-        if (error) callback(error);
+    this.getCollection(function(err, task_collection) {
+        if (err) callback(err);
         else {
-            task_collection.find().toArray(function(error, results) {
-               if (error) callback(error);
+            task_collection.find().toArray(function(err, results) {
+               if (err) callback(err);
                else callback(null, results); 
             });
         } 
@@ -29,8 +29,8 @@ TaskProvider.prototype.findAll = function(callback) {
 };
 
 TaskProvider.prototype.save = function(tasks, callback) {
-    this.getCollection(function(error, task_collection) {
-        if (error) callback(error);
+    this.getCollection(function(err, task_collection) {
+        if (err) callback(err);
         else {
             if (typeof(tasks.length) == "undefined")
                 tasks = [tasks];
@@ -49,8 +49,8 @@ TaskProvider.prototype.save = function(tasks, callback) {
 };
 
 TaskProvider.prototype.remove = function(tasks, callback) {
-    this.getCollection(function(error, task_collection) {
-       if (error) callback(error);
+    this.getCollection(function(err, task_collection) {
+       if (err) callback(err);
        else {
            task_collection.remove(tasks, function() {
               callback(null, tasks); 

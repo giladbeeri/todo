@@ -36,7 +36,7 @@ var ROOT = '/todo';
 var taskProvider = new TaskProvider('localhost', 27017);
 
 app.get(ROOT, function(req, res) {
-    taskProvider.findAll(function(error, docs) {
+    taskProvider.findAll(function(err, docs) {
         res.render('index.jade', {
             title: 'Shared TODO',
             tasks: docs
