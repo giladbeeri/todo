@@ -15,6 +15,9 @@ block content
   #tasks
     h2 Tasks
     p There are {{ (tasks | filter:{done: false}).length }} opened tasks
+    #filterTasks
+      input#filterContent(type="text", placeholder="Filter tasks by content")
+      input#filterOwner(type="text", placeholder="Filter owner")
     +taskTable('openedTasks', false)
     h2 Completed Tasks
     +taskTable('closedTasks', true)

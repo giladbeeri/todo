@@ -1,11 +1,15 @@
 default-font-size = 16px
 hover-delta = 10px
+task-content-width = 300px
+task-owner-width = 80px
+task-operation-width = 25px 
+tasks-div-width = 450px
+filter-content-position = task-operation-width*2
 
 body
   font-family "Helvetica Neue", "Lucida Grande", "Arial"
   font-size default-font-size
   text-align center
-  text-stroke 1px rgba(255, 255, 255, 0.1)
   color #555
 h1, h2
   margin 0
@@ -18,12 +22,22 @@ h1
   text-align left
   margin-left auto
   margin-right auto
-  width 450px
+  width tasks-div-width
+  #filterContent, #filterOwner
+    left filter-content-position 
+    position relative 
+  #filterContent
+    width task-content-width
+  #filterOwner
+    width task-owner-width
   table
+    border-collapse collapse 
     background-color #eee
     thead
       background #999
       color #eee
+   th
+     border 0px
   .task
     &:hover
       color #3D2399
@@ -31,7 +45,7 @@ h1
     margin 20px
     min-width 400px
     .toggleTask, .removeTask
-      width 25px
+      width task-operation-width
       text-align center
       vertical-align text-top
       font-family "Jolly Lodger", cursive
@@ -49,9 +63,9 @@ h1
         color #FF7070
     .content
       font-weight bold
-      width 350px
+      width task-content-width
     .owner
-      min-width 80px
+      min-width task-owner-width
       font-style italic
       font-size default-font-size - 3
     

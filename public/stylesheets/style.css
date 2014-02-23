@@ -2,7 +2,6 @@ body {
   font-family: "Helvetica Neue", "Lucida Grande", "Arial";
   font-size: 16px;
   text-align: center;
-  text-stroke: 1px rgba(255,255,255,0.1);
   color: #555;
 }
 h1,
@@ -21,12 +20,27 @@ h1 {
   margin-right: auto;
   width: 450px;
 }
+#tasks #filterContent,
+#tasks #filterOwner {
+  left: 50px;
+  position: relative;
+}
+#tasks #filterContent {
+  width: 300px;
+}
+#tasks #filterOwner {
+  width: 80px;
+}
 #tasks table {
+  border-collapse: collapse;
   background-color: #eee;
 }
 #tasks table thead {
   background: #999;
   color: #eee;
+}
+#tasks th {
+  border: 0px;
 }
 #tasks .task {
   margin: 20px;
@@ -61,7 +75,7 @@ h1 {
 }
 #tasks .task .content {
   font-weight: bold;
-  width: 350px;
+  width: 300px;
 }
 #tasks .task .owner {
   min-width: 80px;
