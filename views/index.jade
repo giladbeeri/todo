@@ -5,23 +5,23 @@ include mixins.jade
 block content
   h1= title
   #new_task(class="container")
-    form(ng-submit="addTask(task)")
+    form.form-horizontal(ng-submit="addTask(task)")
       h2 New Task
-      div
+      .form-group
         label(for="newTaskContent") Content
-        input(type="text", name="task_content", id="newTaskContent", placeholder="Task content", ng-model="task.content")
-        br
+        input.form-control(type="text", name="task_content", id="newTaskContent", placeholder="Task content", ng-model="task.content")
+      .form-group
         label(for="newTaskOwner") Owner
-        input(type="text", name="task_owner", id="newTaskOwner", placeholder="Owner", ng-model="task.owner")
-        br
+        input.form-control(type="text", name="task_owner", id="newTaskOwner", placeholder="Owner", ng-model="task.owner")
+      .form-group
         label(for="newTaskDate") Due Date
-        input(type="date", name="task_due_date", id="newTaskDueDate", ng-model="task.due_date")
+        input.form-control(type="date", name="task_due_date", id="newTaskDueDate", ng-model="task.due_date")
       div#newTaskSubmit
-        input(type="submit", value="Add", class="btn btn-ttc")
+        input(type="submit", value="Add", class="btn btn-primary btn-lg btn-block")
 
   #tasks(class="container")
     h2 Tasks
-    p There are {{ (tasks | filter:{done: false}).length }} opened tasks
+    p.text-primary There are {{ (tasks | filter:{done: false}).length }} opened tasks
     #filterTasks
       input#filterContent(type="text", placeholder="Filter tasks by content", ng-model="filter.content")
       input#filterOwner(type="text", placeholder="Filter owner", ng-model="filter.owner")

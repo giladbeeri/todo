@@ -3,15 +3,20 @@
   done - Does the table show done (or opened) tasks
   tableId - Id for the table
 
+mixin tableHeaderCell(text, internalName)
+  th(ng-click="sortTable("+ internalName + ")", title="Sort by column") 
+    = text 
+    span.caret
+
 mixin taskTable(tableId, done)
   table(id=tableId)
     thead
       tr
         th.empty
         th.empty
-        th(ng-click="sortTable('content')", title="Sort by column") Task
-        th(ng-click="sortTable('due_date')", title="Sort by column") Due Date
-        th(ng-click="sortTable('owner')", title="Sort by column") Owner
+        +tableHeaderCell('Content', 'content')
+        +tableHeaderCell('Due Date', 'due_date')
+        +tableHeaderCell('Owner', 'owner')
     tbody
       tr.task(ng-repeat="task in tasks | orderBy:predicate:reverseOrder | filter:{done:" + done.toString() + "} | filter:filter")
         td.toggleTask
