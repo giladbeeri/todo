@@ -3,7 +3,7 @@ hover-delta = 10px
 task-content-width = 300px
 task-owner-width = 80px
 task-operation-width = 25px 
-tasks-div-width = 450px
+tasks-div-width = 550px
 filter-content-position = task-operation-width*2
 
 body
@@ -24,11 +24,12 @@ h1
   margin-right auto
   width tasks-div-width
   #filterContent, #filterOwner
-    left filter-content-position 
     position relative 
   #filterContent
+    left filter-content-position
     width task-content-width
   #filterOwner
+    left filter-content-position + task-owner-width
     width task-owner-width
   table
     border-collapse collapse 
@@ -67,7 +68,7 @@ h1
     .content
       font-weight bold
       width task-content-width
-    .owner
+    .owner, .dueDate
       min-width task-owner-width
       font-style italic
       font-size default-font-size - 3

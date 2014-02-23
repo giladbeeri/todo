@@ -18,23 +18,24 @@ h1 {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 450px;
+  width: 550px;
 }
 #tasks #filterContent,
 #tasks #filterOwner {
-  left: 50px;
   position: relative;
 }
 #tasks #filterContent {
+  left: 50px;
   width: 300px;
 }
 #tasks #filterOwner {
+  left: 130px;
   width: 80px;
 }
 #tasks table {
   border-collapse: collapse;
   background-color: #eee;
-  min-width: 450px;
+  min-width: 550px;
 }
 #tasks table thead {
   background: #999;
@@ -81,7 +82,8 @@ h1 {
   font-weight: bold;
   width: 300px;
 }
-#tasks .task .owner {
+#tasks .task .owner,
+#tasks .task .dueDate {
   min-width: 80px;
   font-style: italic;
   font-size: 13px;

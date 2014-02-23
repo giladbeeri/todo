@@ -10,6 +10,7 @@ mixin taskTable(tableId, done)
         th.empty
         th.empty
         th Task
+        th Due Date
         th Owner
     tbody
       tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "} | filter:filter")
@@ -23,5 +24,7 @@ mixin taskTable(tableId, done)
           span(title="Delete", ng-click="deleteTask(task._id)") X
         td.content
           span {{ task.content }}
+        td.dueDate
+          span {{ task.due_date | date:"dd/MM/yyyy" }}
         td.owner
           span {{ task.owner }}
