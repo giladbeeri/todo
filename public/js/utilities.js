@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var setDefaultDate = function() {
     var date = new Date();
     var dd = date.getDate();
     var mm = date.getMonth() + 1;
@@ -8,6 +8,9 @@ $(document).ready(function() {
     if (dd < 10)
         dd = '0' + dd;
     var today = yyyy + '-' + mm + '-' + dd;
-    console.log(today);
     $('#newTaskDueDate').val(today);
+};
+
+$(document).ready(function() {
+    setDefaultDate();
 });
