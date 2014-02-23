@@ -2,10 +2,14 @@ body {
   font-family: "Helvetica Neue", "Lucida Grande", "Arial";
   font-size: 16px;
   color: #555;
+  text-align: center;
+}
+#main-block {
+  width: 80%;
+  margin: auto;
 }
 h1,
 h2 {
-  text-align: center;
   margin: 0;
   font-size: 22px;
   color: #343434;
@@ -15,9 +19,9 @@ h1 {
   font-size: 60px;
 }
 #tasks {
+  display: inline-block;
   text-align: left;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 75px;
   width: 550px;
 }
 #tasks #filterContent,
@@ -99,7 +103,8 @@ h1 {
   color: #b08700;
 }
 #new_task {
-  width: 400px;
+  display: inline-block;
+  width: 250px;
 }
 input,
 textarea,
