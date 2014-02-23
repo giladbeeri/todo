@@ -4,7 +4,7 @@ include mixins.jade
           
 block content
   h1= title
-  #new_task
+  #new_task(class="container")
     form(ng-submit="addTask(task)")
       h2 New Task
       div
@@ -17,9 +17,9 @@ block content
         label(for="newTaskDate") Due Date
         input(type="date", name="task_due_date", id="newTaskDueDate", ng-model="task.due_date")
       div#newTaskSubmit
-        input(type="submit", value="Add")
+        input(type="submit", value="Add", class="btn btn-ttc")
 
-  #tasks
+  #tasks(class="container")
     h2 Tasks
     p There are {{ (tasks | filter:{done: false}).length }} opened tasks
     #filterTasks
