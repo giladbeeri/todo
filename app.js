@@ -62,8 +62,8 @@ app.post(ROOT, function(req, res) {
    taskProvider.save({
         content: req.body.content,
         isCompleted: false,
-        owner: 'John Doe',
-        due_date: new Date()
+        owner: req.body.owner,
+        due_date: req.body.due_date
     }, sendAllTasks(res));
 });
 
