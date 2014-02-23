@@ -45,14 +45,9 @@ h1
    th
      border 0px
      cursor pointer
-     &:hover
-       color #F2FFFE
-       background-color #317ab9
    .empty
      width task-operation-width
   .task
-    &:hover
-      background-color #428bca
     margin 20px
     min-width 400px
     .toggleTask, .removeTask
@@ -94,3 +89,9 @@ input, textarea, select, button
   -moz-box-sizing border-box
   box-sizing border-box
 
+// Copied from Bootstrap, override its default padding so the rows would be smaller.
+.table-condensed
+  thead, tbody, tfoot
+    tr
+      th, td
+        padding 0px

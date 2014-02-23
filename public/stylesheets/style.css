@@ -49,19 +49,12 @@ h1 {
   border: 0px;
   cursor: pointer;
 }
-#tasks th:hover {
-  color: #f2fffe;
-  background-color: #317ab9;
-}
 #tasks .empty {
   width: 25px;
 }
 #tasks .task {
   margin: 20px;
   min-width: 400px;
-}
-#tasks .task:hover {
-  background-color: #428bca;
 }
 #tasks .task .toggleTask,
 #tasks .task .removeTask {
@@ -115,4 +108,12 @@ button {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.table-condensed thead tr th,
+.table-condensed tbody tr th,
+.table-condensed tfoot tr th,
+.table-condensed thead tr td,
+.table-condensed tbody tr td,
+.table-condensed tfoot tr td {
+  padding: 0px;
 }
