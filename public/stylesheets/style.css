@@ -43,6 +43,11 @@ h1 {
 }
 #tasks th {
   border: 0px;
+  cursor: pointer;
+}
+#tasks th:hover {
+  color: #f2fffe;
+  text-shadow: 1px 2px 1px #d1c8c3;
 }
 #tasks .empty {
   width: 25px;

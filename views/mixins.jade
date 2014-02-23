@@ -3,17 +3,17 @@
   done - Does the table show done (or opened) tasks
   tableId - Id for the table
 
-mixin taskTable(tableId, done) 
+mixin taskTable(tableId, done)
   table(id=tableId)
     thead
       tr
         th.empty
         th.empty
-        th Task
-        th Due Date
-        th Owner
+        th(ng-click="sortTable('content')", title="Sort by column") Task
+        th(ng-click="sortTable('due_date')", title="Sort by column") Due Date
+        th(ng-click="sortTable('owner')", title="Sort by column") Owner
     tbody
-      tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "} | filter:filter")
+      tr.task(ng-repeat="task in tasks | orderBy:predicate:reverseOrder | filter:{done:" + done.toString() + "} | filter:filter")
         td.toggleTask
           span(title=done ? "Reopen task" : "Mark as completed", ng-click="toggleTask(task._id)") 
             if done 

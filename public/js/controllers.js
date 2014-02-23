@@ -28,4 +28,11 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
             console.log("Failed updating task #" + taskId);
         });  
     };
+    
+    $scope.reverseOrder = false;
+    $scope.predicate = 'due_date';
+    $scope.sortTable = function(predicate) {
+        $scope.reverseOrder = !$scope.reverseOrder;
+        $scope.predicate = predicate;  
+    };
 }]);
