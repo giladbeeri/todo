@@ -12,7 +12,7 @@ mixin taskTable(tableId, done)
         th Task
         th Owner
     tbody
-      tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "} | filter:filterContent | filter:filterOwner")
+      tr.task(ng-repeat="task in tasks | filter:{done:" + done.toString() + "} | filter:filter")
         td.toggleTask
           span(title=done ? "Reopen task" : "Mark as completed", ng-click="toggleTask(task._id)") 
             if done 

@@ -16,9 +16,8 @@ block content
     h2 Tasks
     p There are {{ (tasks | filter:{done: false}).length }} opened tasks
     #filterTasks
-      //- BUG: You can filter the owner by task, and vice versa.
-      input#filterContent(type="text", placeholder="Filter tasks by content", ng-model="filterContent")
-      input#filterOwner(type="text", placeholder="Filter owner", ng-model="filterOwner")
+      input#filterContent(type="text", placeholder="Filter tasks by content", ng-model="filter.content")
+      input#filterOwner(type="text", placeholder="Filter owner", ng-model="filter.owner")
     +taskTable('openedTasks', false)
     h2 Completed Tasks
     +taskTable('closedTasks', true)
