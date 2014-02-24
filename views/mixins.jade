@@ -4,7 +4,7 @@
   tableId - Id for the table
 
 mixin tableHeaderCell(text, internalName)
-  th(ng-click="sortTable("+ internalName + ")", title="Sort by column") 
+  th(ng-click="sortTable('"+ internalName + "')", title="Sort by column") 
     = text 
     span.caret
 

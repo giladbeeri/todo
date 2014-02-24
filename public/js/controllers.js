@@ -32,8 +32,14 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
     $scope.reverseOrder = false;
     $scope.predicate = 'due_date';
     $scope.sortTable = function(predicate) {
-        $scope.reverseOrder = !$scope.reverseOrder;
-        $scope.predicate = predicate;  
+        if (predicate === $scope.predicate) {
+            $scope.reverseOrder = !$scope.reverseOrder;    
+        } else {
+            $scope.reverseOrder = false;
+            $scope.predicate = predicate;  
+        }
+                
+        console.log("Sort by " + predicate + ", reverse: " + $scope.reverseOrder);
     };
     
     $scope.colorByDueDate = function(dueDateStr) {
