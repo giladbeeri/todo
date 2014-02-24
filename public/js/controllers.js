@@ -57,10 +57,7 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
             cls = "danger";
         } else if (upcomingDate > dueDate) {
             cls = "warning";
-        } else {
-            cls = "farTask";
-        }
-        
+        } 
         return cls;
     };
 }]);
