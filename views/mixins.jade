@@ -18,7 +18,7 @@ mixin taskTable(tableId, done)
         +tableHeaderCell('Due Date', 'due_date')
         +tableHeaderCell('Owner', 'owner')
     tbody
-      tr.task(ng-repeat="task in tasks | filter:filter | filter:{done:" + done.toString() + "} | orderBy:predicate:reverseOrder")
+      tr.task(class="{{ colorByDueDate(task.due_date) }}", ng-repeat="task in tasks | filter:filter | filter:{done:" + done.toString() + "} | orderBy:predicate:reverseOrder")
         td.toggleTask
           span(title=done ? "Reopen task" : "Mark as completed", ng-click="toggleTask(task._id)") 
             if done 
