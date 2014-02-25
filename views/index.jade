@@ -22,7 +22,7 @@ block content
 
   #tasks(class="container")
     h2 Tasks
-    p.text-primary There are {{ (tasks | filter:{done: false}).length }} opened tasks
+    p.text-primary There are <span class="badge">{{ (tasks | filter:{done: false}).length }}</span> opened tasks
     #filterTasks
       input#filterContent(type="text", placeholder="Filter tasks by content", ng-model="filter.content")
       input#filterOwner(type="text", placeholder="Filter owner", ng-model="filter.owner")
