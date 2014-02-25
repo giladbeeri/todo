@@ -42,10 +42,10 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
         console.log("Sort by " + predicate + ", reverse: " + $scope.reverseOrder);
     };
     
-    $scope.colorByDueDate = function(dueDateStr) {
+    $scope.colorTask = function(task) {
         var today = new Date();
         today.setHours(0, 0, 0, 0);
-        dueDate = new Date(dueDateStr);
+        dueDate = new Date(task.due_date);
         dueDate.setHours(0, 0, 0, 0);
         var upcomingDate = new Date();
         upcomingDate.setDate(upcomingDate.getDate() + 2); // 2 days timeframe
@@ -53,10 +53,14 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
 
         // Use Bootstrap 'warning' and 'danger' class as classes for late and upcoming tasks.
         var cls = "";
-        if (today > dueDate) {
-            cls = "danger";
-        } else if (upcomingDate > dueDate) {
-            cls = "warning";
+        if (task.done) {
+            cls = "success";
+        } else {
+            if (today > dueDate) {
+                cls = "danger";
+            } else if (upcomingDate > dueDate) {
+                cls = "warning";
+            }
         } 
         return cls;
     };
