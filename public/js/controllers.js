@@ -64,4 +64,8 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
         } 
         return cls;
     };
+    
+    $scope.getToday = function() {
+        return getToday();
+    };
 }]);
