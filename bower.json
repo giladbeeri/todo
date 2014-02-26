@@ -1,0 +1,16 @@
+{
+  "name": "shared_todo",
+  "version": "0.0.0",
+  "authors": [
+    "John Doe <john@doe.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
