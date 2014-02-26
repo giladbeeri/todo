@@ -1,4 +1,4 @@
-var todoControllers = angular.module('todoApp', []);
+var todoControllers = angular.module('todoApp', ["xeditable"]);
 
 todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.tasks = $http.get('/todo/list').success(function(tasks) {

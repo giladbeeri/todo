@@ -32,4 +32,4 @@ mixin taskTable(tableId, done)
         td.dueDate
           span {{ task.due_date | date:"dd/MM/yyyy" }}
         td.owner
-          span {{ task.owner }}
+          span(editable-text="task.owner") {{ task.owner }}
