@@ -9,6 +9,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var TaskProvider = require('./db/taskprovider-mongoose').TaskProvider;
+var Urls = require('./common/common').Urls;
 
 var app = express();
 
@@ -34,11 +35,9 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var ROOT = '/todo';
-
 var taskProvider = new TaskProvider('localhost', 27017);
 
-app.get(ROOT, function(req, res) {
+app.get(Urls.ROOT, function(req, res) {
     taskProvider.findAll(function(err, docs) {
         res.render('index.jade', {
             title: 'Shared TODO',
@@ -57,11 +56,11 @@ var sendAllTasks = function(res) {
     };
 };
 
-app.get(ROOT + '/list', function(req, res) {
+app.get(Urls.TASK_LIST, function(req, res) {
     sendAllTasks(res)(null);
 });
 
-app.post(ROOT, function(req, res) {
+app.post(Urls.ROOT, function(req, res) {
    taskProvider.save({
         content: req.body.content,
         isCompleted: false,
@@ -70,11 +69,11 @@ app.post(ROOT, function(req, res) {
     }, sendAllTasks(res));
 });
 
-app.del(ROOT + '/:todo_id', function(req, res) {
+app.del(Urls.TASK_LIST + '/:todo_id', function(req, res) {
     taskProvider.remove(req.params["todo_id"], sendAllTasks(res));
 });
 
-app.put(ROOT + '/:todo_id', function(req, res) {
+app.put(Urls.TASK_LIST + '/:todo_id', function(req, res) {
     taskProvider.toggleTask(req.params["todo_id"], sendAllTasks(res));
 });
 
