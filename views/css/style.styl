@@ -1,0 +1,98 @@
+default-font-size = 16px
+hover-delta = 10px
+task-content-width = 300px
+task-owner-width = 80px
+task-operation-width = 25px 
+tasks-div-width = 550px
+filter-content-position = task-operation-width*2
+
+body
+  font-family "Helvetica Neue", "Lucida Grande", "Arial"
+  font-size default-font-size
+  color #555
+  text-align center
+  
+#main-block
+  width 900px
+  margin 0 auto
+  text-align left
+h1, h2
+  text-align center
+  font-size 22px
+  color #343434
+h1
+  text-shadow 1px 2px 2px #ddd
+  font-size 60px
+#tasks
+  display inline-block
+  text-align left
+  margin-left 75px
+  width tasks-div-width
+  #filterContent, #filterOwner
+    position relative 
+  #filterContent
+    left filter-content-position
+    width task-content-width
+  #filterOwner
+    left filter-content-position + task-owner-width
+    width task-owner-width
+  table
+    border-collapse collapse 
+    background-color #eee
+    min-width tasks-div-width
+    thead
+      background #428bca
+      color #fff
+   th
+     border 0px
+     cursor pointer
+   .empty
+     width task-operation-width
+  .task
+    margin 20px
+    min-width 400px
+    .toggleTask, .removeTask
+      width task-operation-width
+      text-align center
+      vertical-align text-top
+      font-family "Jolly Lodger", cursive
+      span:hover
+        cursor pointer
+    .toggleTask
+      color #49C94B
+      &:hover
+        color #ABE0AB
+    .removeTask
+      color red
+      &:hover
+        color #FF7070
+    .content
+      font-weight bold
+      width task-content-width
+    .owner, .dueDate
+      min-width task-owner-width
+      font-style italic
+      font-size default-font-size - 3
+    
+  #closedTasks .content
+    text-decoration line-through
+  #closedTasks .toggleTask
+    color #B08700
+
+#new_task
+  display inline-block
+  width 250px
+
+input, textarea, select, button
+  margin 0
+  width 150px
+  -webkit-box-sizing border-box
+  -moz-box-sizing border-box
+  box-sizing border-box
+
+// Copied from Bootstrap, override its default padding so the rows would be smaller.
+.table-condensed
+  thead, tbody, tfoot
+    tr
+      th, td
+        padding 0px
