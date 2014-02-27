@@ -1,19 +1,21 @@
+var bowerPath = function(relative) { return 'public/bower_components' + relative; };
+
 module.exports = function(config){
     config.set({
-    basePath : '../',
+    basePath : '../../../',
 
     files : [
-      'app/lib/angular/angular.js',
-      'app/lib/angular/angular-*.js',
-      'test/lib/angular/angular-mocks.js',
-      'app/js/**/*.js',
-      'test/unit/**/*.js'
+      bowerPath('/angular/angular.js'),
+      bowerPath('/angular/angular-*.js'),
+      'tests/client/lib/angular/angular-mocks.js',
+      'public/js/**/*.js',
+      'tests/client/unit/**/*.js'
     ],
 
     exclude : [
-      'app/lib/angular/angular-loader.js',
-      'app/lib/angular/*.min.js',
-      'app/lib/angular/angular-scenario.js'
+      bowerPath('/angular/angular-loader.js'),
+      bowerPath('/angular/*.min.js'),
+      bowerPath('/angular/angular-scenario.js')
     ],
 
     autoWatch : true,
