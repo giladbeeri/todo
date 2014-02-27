@@ -1,12 +1,13 @@
 var todoControllers = angular.module('todoControllers', []);
 
-todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $http) {
-    $scope.tasks = $http.get('/todo/list').success(function(tasks) {
+todoControllers.controller('TaskCtrl', 
+    ['$scope', '$http', 'config', function($scope, $http, config) {
+    $scope.tasks = $http.get(config.taskListUrl).success(function(tasks) {
         $scope.tasks = tasks;
     });
     
     $scope.addTask = function(task) {
-        $http.post('/todo', task).success(function(data) {
+        $http.post(config.taskListUrl, task).success(function(data) {
             $scope.tasks = data;
         });
     };
@@ -15,14 +16,14 @@ todoControllers.controller('TaskCtrl', ['$scope', '$http', function($scope, $htt
         console.log("Angular: delete task #" + taskId);
         // Possible to remove the task from the current array, instead of reading the data from the server again.
         // It would be faster, but less reliable in a multi-client environment.
-        $http.delete('/todo/' + taskId).success(function(data) {
+        $http.delete(config.taskListUrl + taskId).success(function(data) {
             $scope.tasks = data;
         });  
     };
     
     $scope.toggleTask = function(taskId) {
         console.log("Angular: Toggle task #" + taskId);
-        $http.put('/todo/' + taskId).success(function(data) {
+        $http.put(config.taskListUrl + taskId).success(function(data) {
             $scope.tasks = data;
         }).error(function(data) {
             console.log("Failed updating task #" + taskId);
