@@ -9,7 +9,7 @@ module.exports = function(config){
       bowerPath('/angular/angular-*.js'),
       'tests/client/lib/angular/angular-mocks.js',
       'public/js/**/*.js',
-      'tests/client/unit/**/*.js'
+      'tests/client/test/unit/**/*.js'
     ],
 
     exclude : [
@@ -21,6 +21,8 @@ module.exports = function(config){
     autoWatch : true,
 
     frameworks: ['jasmine'],
+
+    logLevel: LOG_DEBUG,
 
     browsers : ['Chrome'],
 
