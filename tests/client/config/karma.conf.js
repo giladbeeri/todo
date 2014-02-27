@@ -7,7 +7,7 @@ module.exports = function(config){
     files : [
       bowerPath('/angular/angular.js'),
       bowerPath('/angular/angular-*.js'),
-      'tests/client/lib/angular/angular-mocks.js',
+      'tests/client/test/lib/angular/angular-mocks.js',
       'public/js/**/*.js',
       'tests/client/test/unit/**/*.js'
     ],
@@ -21,8 +21,6 @@ module.exports = function(config){
     autoWatch : true,
 
     frameworks: ['jasmine'],
-
-    logLevel: LOG_DEBUG,
 
     browsers : ['Chrome'],
 

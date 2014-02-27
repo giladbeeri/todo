@@ -2,21 +2,8 @@
 
 /* jasmine specs for controllers go here */
 
-describe('controllers', function(){
-  beforeEach(module('myApp.controllers'));
-
-
-  it('should ....', inject(function() {
-    //spec body
-  }));
-
-  it('should ....', inject(function() {
-    //spec body
-  }));
-});
-
 describe('TodoList controllers', function() {
-    beforeEach(module('todoApp'));
+    beforeEach(module('todoControllers'));
     
     describe('TaskCtrl', function() {
         
