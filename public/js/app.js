@@ -1,7 +1,7 @@
 var todoApp = angular.module('todoApp', ['xeditable', 'todoControllers']);
 
 todoApp.constant('config', {
-    taskListUrl: '/todo/'
+    taskListUrl: '/tasks/'
 });
 
 todoApp.run(function(editableOptions, editableThemes) {
