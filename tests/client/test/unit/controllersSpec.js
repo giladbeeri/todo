@@ -18,7 +18,15 @@ describe('TodoList controllers', function() {
         });
         
         it('should sort table by new predicate with false reverse order', function() {
+            scope.sortTable('predicate1');
+            scope.sortTable('predicate2');
             expect(scope.reverseOrder).toBeFalsy();
+        });
+        
+        it('should sort table by reverse order if same predicate passed', function() {
+            scope.sortTable('predicate1');
+            scope.sortTable('predicate1');
+            expect(scope.reverseOrder).toBeTruthy();
         });
     });
 });
