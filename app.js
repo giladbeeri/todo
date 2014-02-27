@@ -60,7 +60,7 @@ app.get(Urls.TASK_LIST, function(req, res) {
     sendAllTasks(res)(null);
 });
 
-app.post(Urls.ROOT, function(req, res) {
+app.post(Urls.TASK_LIST, function(req, res) {
    taskProvider.save({
         content: req.body.content,
         isCompleted: false,
