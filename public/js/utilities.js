@@ -9,11 +9,3 @@ var getToday = function() {
         dd = '0' + dd;
     return yyyy + '-' + mm + '-' + dd;
 };
-
-var setDefaultDate = function() {
-    $('#newTaskDueDate').val(getToday());
-};
-
-$(document).ready(function() {
-    setDefaultDate();
-});
