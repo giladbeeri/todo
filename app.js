@@ -42,25 +42,11 @@ var taskProvider = new TaskProvider('localhost', 27017);
 var indexRouter = new Index(taskProvider);
 var taskRouter = new Tasks(taskProvider);
 
-app.get(Urls.ROOT, function(req, res) { 
-    indexRouter.index(req, res); 
-});
-
-app.get(Urls.TASK_LIST, function(req, res) { 
-    taskRouter.read(req, res); 
-});
-
-app.post(Urls.TASK_LIST, function(req, res) {
-   taskRouter.create(req, res);
-});
-
-app.del(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, function(req, res) {
-    taskRouter.del(req, res);
-});
-
-app.put(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, function(req, res) {
-    taskRouter.update(req, res);
-});
+app.get(Urls.ROOT, indexRouter.index.bind(indexRouter)); 
+app.get(Urls.TASK_LIST, taskRouter.read.bind(taskRouter)); 
+app.post(Urls.TASK_LIST, taskRouter.create.bind(taskRouter));
+app.del(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.del.bind(taskRouter));
+app.put(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.update.bind(taskRouter));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
