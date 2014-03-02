@@ -10,6 +10,7 @@ var http = require('http');
 var path = require('path');
 var TaskProvider = require('./db/taskprovider-mongoose').TaskProvider;
 var Urls = require('./common/common').Urls;
+var index = require('./routes/index');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(require('stylus').middleware({
     dest: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '.')));
+app.use(express.static(path.join(__dirname, 'routes')));
 
 // development only
 if ('development' == app.get('env')) {
@@ -36,15 +38,9 @@ if ('development' == app.get('env')) {
 }
 
 var taskProvider = new TaskProvider('localhost', 27017);
+var indexRouter = new Index(taskProvider);
 
-app.get(Urls.ROOT, function(req, res) {
-    taskProvider.findAll(function(err, docs) {
-        res.render('index.jade', {
-            title: 'Shared TODO',
-            tasks: docs
-            });
-    });
-});
+app.get(Urls.ROOT, function(req, res) { indexRouter.index(req, res) });
 
 var sendAllTasks = function(res) {
     return function(err) {
