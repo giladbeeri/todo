@@ -5,12 +5,13 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
+var index = require('./routes/index');
+var user = require('./routes/tasks');
 var http = require('http');
 var path = require('path');
 var TaskProvider = require('./db/taskprovider-mongoose').TaskProvider;
+var Const = require('./common/common').Const;
 var Urls = require('./common/common').Urls;
-var index = require('./routes/index');
 
 var app = express();
 
@@ -39,38 +40,26 @@ if ('development' == app.get('env')) {
 
 var taskProvider = new TaskProvider('localhost', 27017);
 var indexRouter = new Index(taskProvider);
+var taskRouter = new Tasks(taskProvider);
 
-app.get(Urls.ROOT, function(req, res) { indexRouter.index(req, res) });
+app.get(Urls.ROOT, function(req, res) { 
+    indexRouter.index(req, res); 
+});
 
-var sendAllTasks = function(res) {
-    return function(err) {
-        if (err) res.send(err);
-        taskProvider.findAll(function(err, tasks) {
-            if (err) res.send(err);
-            res.json(tasks); 
-        }); 
-    };
-};
-
-app.get(Urls.TASK_LIST, function(req, res) {
-    sendAllTasks(res)(null);
+app.get(Urls.TASK_LIST, function(req, res) { 
+    taskRouter.read(req, res); 
 });
 
 app.post(Urls.TASK_LIST, function(req, res) {
-   taskProvider.save({
-        content: req.body.content,
-        isCompleted: false,
-        owner: req.body.owner,
-        due_date: req.body.due_date
-    }, sendAllTasks(res));
+   taskRouter.create(req, res);
 });
 
-app.del(Urls.TASK_LIST + '/:todo_id', function(req, res) {
-    taskProvider.remove(req.params["todo_id"], sendAllTasks(res));
+app.del(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, function(req, res) {
+    taskRouter.del(req, res);
 });
 
-app.put(Urls.TASK_LIST + '/:todo_id', function(req, res) {
-    taskProvider.toggleTask(req.params["todo_id"], sendAllTasks(res));
+app.put(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, function(req, res) {
+    taskRouter.update(req, res);
 });
 
 http.createServer(app).listen(app.get('port'), function(){
