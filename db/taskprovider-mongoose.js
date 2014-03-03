@@ -40,14 +40,15 @@ TaskProvider.prototype.remove = function(taskId, callback) {
 };
 
 TaskProvider.prototype.update = function(taskId, newData, callback) {
-    this.Task.update(
-        { _id: taskId },
+    console.log('Updating #', taskId, ' with ', newData);
+    this.Task.findByIdAndUpdate(
+        taskId,
         newData,
-        {},
-        function(err, numAffected) {
+        function(err, task) {
             if (err) callback(err);
-            else callback(null, numAffected);
-        });
+            else callback(null, task);
+        }
+    );
 };
 
 TaskProvider.prototype.toggleTask = function(taskId, callback) {

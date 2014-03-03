@@ -35,9 +35,8 @@ Tasks.prototype.del = function(req, res) {
 };
 
 Tasks.prototype.update = function(req, res) {
-    this.taskProvider.toggleTask(
-        req.params[Const.TASK_ID_PARAM], 
-        this.sendAllTasks(res).bind(this));
+    console.log(req.body);
+    this.taskProvider.update(req.params[Const.TASK_ID_PARAM], req.body, this.sendAllTasks(res).bind(this));
 };
 
 exports.Tasks = Tasks;
