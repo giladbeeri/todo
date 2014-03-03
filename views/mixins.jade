@@ -20,7 +20,7 @@ mixin taskTable(tableId, done)
     tbody
       tr.task(class="{{ colorTask(task) }}", ng-repeat="task in tasks | filter:filter | filter:{done:" + done.toString() + "} | orderBy:predicate:reverseOrder")
         td.toggleTask
-          span(title=done ? "Reopen task" : "Mark as completed", ng-click="toggleTask(task._id)") 
+          span(title=done ? "Reopen task" : "Mark as completed", ng-click="toggleTask(task)") 
             if done 
               &#x25cb
             else

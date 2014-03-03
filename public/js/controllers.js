@@ -21,12 +21,12 @@ todoControllers.controller('TaskCtrl',
         });  
     };
     
-    $scope.toggleTask = function(taskId) {
-        console.log("Angular: Toggle task #" + taskId);
-        $http.put(config.taskListUrl + taskId).success(function(data) {
+    $scope.toggleTask = function(task) {
+        console.log("Angular: Toggle task #" + task._id);
+        $http.put(config.taskListUrl + task._id, {_id: task._id, done: !task.done}).success(function(data) {
             $scope.tasks = data;
         }).error(function(data) {
-            console.log("Failed updating task #" + taskId);
+            console.log("Failed updating task #" + task._id);
         });  
     };
     
