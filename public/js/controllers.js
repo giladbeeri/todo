@@ -34,8 +34,12 @@ todoControllers.controller('TaskCtrl',
         updateTaskImpl(task, { done: !task.done });
     };
     
-    $scope.updateTask = function(task, data) {
+    $scope.updateOwner = function(task, data) {
         updateTaskImpl(task, { owner: data });
+    };
+    
+    $scope.updateContent = function(task, data) {
+        updateTaskImpl(task, { content: data });
     };
     
     $scope.reverseOrder = false;
