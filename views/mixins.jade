@@ -22,9 +22,9 @@ mixin taskTable(tableId, done)
         td.toggleTask
           span(title=done ? "Reopen task" : "Mark as completed", ng-click="toggleTask(task)") 
             if done 
-              &#x25cb
+              | &#x25cb
             else
-              &#x2713
+              | &#x2713
         td.removeTask
           span(title="Delete", ng-click="deleteTask(task._id)") X
         td.content(editable-text="task.content", buttons="no", onbeforesave="updateContent(task, $data)")
