@@ -1,5 +1,6 @@
-require('../../db/taskprovider-memory');
-require('../../routes/tasks');
+var TaskProvider = require('../../db/taskprovider-memory').TaskProvider;
+var Tasks = require('../../routes/tasks').Tasks;
+var httpMocks = require('node-mocks-http');
 
 describe('Task Router', function() {
     defaultTasks = [
@@ -16,6 +17,9 @@ describe('Task Router', function() {
     });
     
     it('should read all tasks', function () {
-        taskRouter.read(null, null);
+        var res = httpMocks.createResponse();
+        taskRouter.read(null, res);
+        var data = JSON.parse(res._getData());
+        expect(data.length).toEqual(defaultTasks.length);
     });
 });
