@@ -21,23 +21,21 @@ todoControllers.controller('TaskCtrl',
         });  
     };
     
-    $scope.toggleTask = function(task) {
-        console.log("Angular: Toggle task #" + task._id);
-        $http.put(config.taskListUrl + task._id, {done: !task.done}).success(function(data) {
+    var updateTaskImpl = function(task, newData) {
+        console.log('Updating task #' + task._id + 'with data:', JSON.stringify(newData));
+        $http.put(config.taskListUrl + task._id, newData).success(function(data) {
             $scope.tasks = data;
         }).error(function(data) {
             console.log("Failed updating task #" + task._id);
         });  
     };
     
+    $scope.toggleTask = function(task) {
+        updateTaskImpl(task, { done: !task.done });
+    };
+    
     $scope.updateTask = function(task, data) {
-        console.log("Updating task with data: ", data);
-        console.log(task);
-        $http.put(config.taskListUrl + task._id, { owner: data }).success(function(data) {
-            $scope.tasks = data;
-        }).error(function(data) {
-            console.log("Failed updating task #" + task._id);
-        });  
+        updateTaskImpl(task, { owner: data });
     };
     
     $scope.reverseOrder = false;
