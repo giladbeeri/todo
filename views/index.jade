@@ -4,6 +4,9 @@ include mixins.jade
           
 block content
  #main-block
+  #user
+    p
+      | Hello, #{user}!
   h1= title
   #new_task(class="container")
     form.form-horizontal(ng-submit="addTask(task)")

@@ -25,6 +25,8 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(express.cookieParser('keyboard cat'));
+app.use(express.session());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
@@ -51,7 +53,7 @@ app.post(Urls.TASK_LIST, taskRouter.create.bind(taskRouter));
 app.del(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.del.bind(taskRouter));
 app.put(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.update.bind(taskRouter));
 
-// ******* Authentiocation *********
+// ******* Authentication *********
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -73,7 +75,8 @@ app.get('/login', function(req, res) {
     res.sendfile(path.join(__dirname, 'public', 'login.html'));
 });
 app.post('/login', passport.authenticate('local', 
-                                        { successRedirect: '/',
+                                        { session: true,
+                                          successRedirect: '/',
                                           failureRedirect: '/login'
                                           /* Flash messages require connect-flash,
                                           failureFlash: true,
