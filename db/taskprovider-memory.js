@@ -24,12 +24,4 @@ TaskProvider.prototype.save = function(tasks, callback) {
     callback(null, tasks);
 };
 
-defaultTasks = [
-{content: "Complete this project", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 3, 1) },
-{content: "Finish your homework", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 2, 28) },
-{content: "Go to sleep", owner: "John Doe", isCompleted: false, due_date: new Date() }
-];
-
-new TaskProvider().save(defaultTasks, function(){});
-
 exports.TaskProvider = TaskProvider;
