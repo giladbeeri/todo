@@ -63,9 +63,6 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-User.register(new User({ username: 'yes' }), 'yes', function() {});
-User.register(new User({ username: 'test@test.com' }), 'test', function() {});
-
 var loginResgiterRoute = function(req, res, options) {
     fs.readFile('./views/login_register_template.mustache', { encoding: 'utf8' }, function(err, data) {
         if (err) {
@@ -95,6 +92,17 @@ app.post('/login', passport.authenticate('local',
                                         function(req, res) {
                                             console.log('Authenticated ' + req.user.username); 
                                         });                                
+                                        
+app.post('/register', function(req, res) {
+    var user = new User({ username: req.body.username });
+    User.register(user, req.body.password, function (err, user) {
+        if (err) { return res.send(500, 'Failed registering: ' + JSON.stringify(err)); }
+        req.login(user, function (err) {
+            if (err) { return res.send(500, 'Failed login: ' + JSON.stringify(err)); }
+            return res.redirect('/');
+        });
+    });
+});
                                         
 app.get('/logout', function(req, res) {
     req.logout();
