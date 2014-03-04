@@ -13,7 +13,8 @@
     "mongoose": "~3.8.8",
     "passport": "~0.2.0",
     "passport-local": "*",
-    "passport-local-mongoose": "*"
+    "passport-local-mongoose": "*",
+    "connect-flash": "*"
   },
   "devDependencies": {
     "phantomjs" : "~1.9",

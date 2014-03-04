@@ -15,6 +15,7 @@ var Urls = require('./common/common').Urls;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/user');
+var flash = require('connect-flash');
 var app = express();
 
 // all environments
@@ -28,6 +29,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('keyboard cat'));
 app.use(express.session());
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
@@ -68,10 +70,9 @@ app.get('/login', function(req, res) {
 app.post('/login', passport.authenticate('local', 
                                         { session: true,
                                           successRedirect: '/',
-                                          failureRedirect: '/login'
-                                          /* Flash messages require connect-flash,
+                                          failureRedirect: '/login',
                                           failureFlash: true,
-                                          successFlash: 'Welcome aboard!'*/ 
+                                          successFlash: 'Welcome aboard!' 
                                           }),
                                         function(req, res) {
                                             console.log('Authenticated ' + req.user.username); 
