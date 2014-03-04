@@ -121,6 +121,10 @@ button {
 .table-condensed tfoot tr td {
   padding: 0px;
 }
+.tasks .form-control {
+  padding: 0px;
+  width: 80px;
+}
 .editable-click {
   border-bottom: 0px;
   color: #000;
