@@ -7,7 +7,6 @@ Index = function(taskProvider) {
 };
 
 Index.prototype.index = function(req, res) {
-    console.log(req.user);
     this.taskProvider.findAll(function(err, docs) {
         res.render('index.jade', {
             title: 'Shared TODO',
