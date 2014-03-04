@@ -33,3 +33,19 @@ mixin taskTable(tableId, done)
           span {{ task.due_date | date:"dd/MM/yyyy" }}
         td.owner(editable-text="task.owner", buttons="no", onbeforesave="updateOwner(task, $data)")
           span() {{ task.owner }}
+
+
+mixin header(user)
+  #header
+    nav.navbar.navbar-default.navbar-static-top.navbar-inverse(role="navigation")
+      .container-fluid
+        if (user)
+          p.navbar-text
+            | Hello, #{ user.username }!
+          a.btn.btn-link.navbar-btn(href="/logout") Logout 
+        else
+          p.navbar-text
+            | Hello, Guest!
+          a.btn.btn-link.navbar-btn(href="/login") Login 
+          a.btn.btn-link.navbar-btn(href="#") Register
+      

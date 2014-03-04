@@ -14,6 +14,7 @@ var Const = require('./common/common').Const;
 var Urls = require('./common/common').Urls;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var User = require('./models/user');
 var app = express();
 
 // all environments
@@ -54,23 +55,13 @@ app.del(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.del.bind(taskRout
 app.put(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.update.bind(taskRouter));
 
 // ******* Authentication *********
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-passport.serializeUser(function(user, done) {
-    done(null, user);
-});
+User.register(new User({ username: 'yes' }), 'yes', function() {});
+User.register(new User({ username: 'test@test.com' }), 'test', function() {});
 
-passport.deserializeUser(function(user, done) {
-    done(null, user);
-});
-
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        console.log('user: ' + username);
-        console.log('pass: ' + password);
-        // Here you should verify the user, call done(null, username) only if successfully verified.
-        return done(null, username);
-    }
-));
 app.get('/login', function(req, res) {
     res.sendfile(path.join(__dirname, 'public', 'login.html'));
 });
@@ -84,7 +75,12 @@ app.post('/login', passport.authenticate('local',
                                           }),
                                         function(req, res) {
                                             console.log('Authenticated ' + req.user.username); 
-                                        });                                              
+                                        });                                
+                                        
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 // ******* Authentication - end *********
 

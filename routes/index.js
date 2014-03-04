@@ -11,7 +11,7 @@ Index.prototype.index = function(req, res) {
         res.render('index.jade', {
             title: 'Shared TODO',
             tasks: docs,
-            user: req.user
+            user: req.user 
             });
     });
 };
