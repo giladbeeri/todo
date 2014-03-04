@@ -77,6 +77,17 @@ app.get('/login', function(req, res) {
     });
 });
 
+app.get('/register', function(req, res) {
+    fs.readFile('./views/login_register_template.mustache', { encoding: 'utf8' }, function(err, data) {
+        if (err) {
+            console.error(err.stack);
+            res.send(500, 'Failed reading file');
+        }
+               
+        res.send(mustache.to_html(data, { action: 'register', title: 'Register', rememberMe: false }));
+    });
+});
+
 app.post('/login', passport.authenticate('local', 
                                         { session: true,
                                           successRedirect: '/',
