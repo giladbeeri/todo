@@ -110,6 +110,9 @@ button {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.username {
+  font-weight: bold;
+}
 .table-condensed thead tr th,
 .table-condensed tbody tr th,
 .table-condensed tfoot tr th,

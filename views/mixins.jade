@@ -41,7 +41,9 @@ mixin header(user)
       .container-fluid
         if (user)
           p.navbar-text
-            | Hello, #{ user.username }!
+            | Hello, 
+            span.username #{ user.username }
+            | !
           a.btn.btn-link.navbar-btn(href="/logout") Logout 
         else
           p.navbar-text
