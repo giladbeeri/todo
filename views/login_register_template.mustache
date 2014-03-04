@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!--<link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
 
-    <title>Signin</title>
+    <title>{{ title }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
@@ -31,21 +31,19 @@
 
     <div class="container">
 
-      <form class="form-signin" role="form" action="/login" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
+      <form class="form-signin" role="form" action="/{{ action }}" method="post">
+        <h2 class="form-signin-heading">Please {{ action }}</h2>
         <input type="text" class="form-control" placeholder="Username" required autofocus name="username">
         <input type="password" class="form-control" placeholder="Password" required name="password">
+        {{ #rememberMe }}
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        {{ /rememberMe }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ title }}</button>
       </form>
 
     </div> <!-- /container -->
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
   </body>
 </html>
