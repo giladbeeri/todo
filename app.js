@@ -66,26 +66,23 @@ passport.deserializeUser(User.deserializeUser());
 User.register(new User({ username: 'yes' }), 'yes', function() {});
 User.register(new User({ username: 'test@test.com' }), 'test', function() {});
 
-app.get('/login', function(req, res) {
+var loginResgiterRoute = function(req, res, options) {
     fs.readFile('./views/login_register_template.mustache', { encoding: 'utf8' }, function(err, data) {
         if (err) {
             console.error(err.stack);
             res.send(500, 'Failed reading file');
         }
                
-        res.send(mustache.to_html(data, { action: 'login', title: 'Sign in', rememberMe: true }));
+        res.send(mustache.to_html(data, options));
     });
+};
+
+app.get('/login', function(req, res) {
+    loginResgiterRoute(req, res, { action: 'login', title: 'Sign in', rememberMe: true });
 });
 
 app.get('/register', function(req, res) {
-    fs.readFile('./views/login_register_template.mustache', { encoding: 'utf8' }, function(err, data) {
-        if (err) {
-            console.error(err.stack);
-            res.send(500, 'Failed reading file');
-        }
-               
-        res.send(mustache.to_html(data, { action: 'register', title: 'Register', rememberMe: false }));
-    });
+    loginResgiterRoute(req, res, { action: 'register', title: 'Register', rememberMe: false });
 });
 
 app.post('/login', passport.authenticate('local', 
