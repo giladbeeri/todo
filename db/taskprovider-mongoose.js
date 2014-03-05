@@ -1,6 +1,6 @@
 var Task = require('../models/task');
 
-TaskProvider = function(host, port) {
+TaskProvider = function() {
 };
 
 

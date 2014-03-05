@@ -49,7 +49,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var taskProvider = new TaskProvider('localhost', 27017);
+var taskProvider = new TaskProvider();
 var indexRouter = new Index(taskProvider);
 var taskRouter = new Tasks(taskProvider);
 
