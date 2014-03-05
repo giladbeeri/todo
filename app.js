@@ -11,6 +11,7 @@ var user = require('./routes/tasks');
 var http = require('http');
 var path = require('path');
 var TaskProvider = require('./db/taskprovider-mongoose').TaskProvider;
+var mongoose = require('mongoose');
 var Const = require('./common/common').Const;
 var Urls = require('./common/common').Urls;
 var passport = require('passport');
@@ -110,6 +111,8 @@ app.get('/logout', function(req, res) {
 });
 
 // ******* Authentication - end *********
+
+mongoose.connect('mongodb://localhost:27017/node-mongo-todo');
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

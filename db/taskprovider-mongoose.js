@@ -1,20 +1,11 @@
-var mongoose = require('mongoose');
+var Task = require('../models/task');
 
 TaskProvider = function(host, port) {
-    this.db = mongoose.connect('mongodb://localhost:27017/node-mongo-todo');
-    this.schema = new mongoose.Schema({
-            content: String,
-            owner: String, 
-            done: { type: Boolean, default: false },
-            creation_date: { type: Date, default: Date.now },
-            due_date: Date,
-        });
-    this.Task = mongoose.model('Task', this.schema);
 };
 
 
 TaskProvider.prototype.findAll = function(callback) {
-    this.Task.find(function(err, tasks) {
+    Task.find(function(err, tasks) {
        if (err) callback(err);
        else {
            callback(null, tasks);
@@ -25,7 +16,7 @@ TaskProvider.prototype.findAll = function(callback) {
 TaskProvider.prototype.save = function(tasks, callback) {
     if (typeof(tasks.length) == "undefined")
         tasks = [tasks];
-    this.Task.create(tasks, function(err, tasks) {
+    Task.create(tasks, function(err, tasks) {
         if (err) callback(err);
         else callback(null, tasks);
     });
@@ -33,7 +24,7 @@ TaskProvider.prototype.save = function(tasks, callback) {
 
 TaskProvider.prototype.remove = function(taskId, callback) {
     console.log("TaskProvider: Remove task #" + taskId);
-    this.Task.remove({ _id: taskId }, function(err, tasks) {
+    Task.remove({ _id: taskId }, function(err, tasks) {
        if (err) callback(err);
        else callback(null, tasks); 
     });
@@ -41,7 +32,7 @@ TaskProvider.prototype.remove = function(taskId, callback) {
 
 TaskProvider.prototype.update = function(taskId, newData, callback) {
     console.log('Updating #', taskId, ' with ', newData);
-    this.Task.findByIdAndUpdate(
+    Task.findByIdAndUpdate(
         taskId,
         newData,
         function(err, task) {
@@ -52,7 +43,7 @@ TaskProvider.prototype.update = function(taskId, newData, callback) {
 };
 
 TaskProvider.prototype.toggleTask = function(taskId, callback) {
-    this.Task.find(
+    Task.find(
         { _id: taskId },
         'done',
         function(taskProvider) {
