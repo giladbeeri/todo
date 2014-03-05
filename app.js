@@ -4,6 +4,7 @@
  */
 
 var express = require('express');
+var User = require('./models/user');
 var routes = require('./routes');
 var index = require('./routes/index');
 var user = require('./routes/tasks');
@@ -14,7 +15,6 @@ var Const = require('./common/common').Const;
 var Urls = require('./common/common').Urls;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/user');
 var flash = require('connect-flash');
 var fs = require('fs');
 var mustache = require('mustache');
