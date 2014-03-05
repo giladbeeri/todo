@@ -17,6 +17,11 @@ block content
         label(for="newTaskOwner") Owner
         input.form-control(type="text", name="task_owner", id="newTaskOwner", placeholder="Owner", ng-model="task.owner")
       .form-group
+        label(for="newTaskOwnerSelect") Owner
+        select.form-control(name="task_owner_select", ng-model="task.owner")
+          each username in users
+            option= username
+      .form-group
         label(for="newTaskDate") Due Date
         input.form-control(type="date", name="task_due_date", id="newTaskDueDate", ng-model="task.due_date", min="{{ getToday() }}")
       div#newTaskSubmit
