@@ -129,3 +129,11 @@ button {
   border-bottom: 0px;
   color: #000;
 }
+.form-control.select2-container {
+  padding: 0px;
+  border-top: none;
+  margin-top: -1px;
+}
+.form-control.select2-container a {
+  height: 34px;
+}

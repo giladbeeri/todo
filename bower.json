@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "bselect": "*"
+    "bselect": "*",
+    "angular-ui-select2": "*"
   }
 }

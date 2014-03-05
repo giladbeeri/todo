@@ -21,7 +21,8 @@ block content
         input.form-control(type="text", name="task_owner", id="newTaskOwner", placeholder="Owner", ng-model="task.owner")
       .form-group
         label(for="newTaskOwnerSelect") Owner
-        select.form-control(name="task_owner_select", ng-model="task.owner")
+        select.form-control.populate#selectOwner(name="task_owner_select", ng-model="task.owner", 
+                ui-select2="{ allowClear: true }", data-placeholder="Owner")
           each username in users
             option= username
       .form-group
