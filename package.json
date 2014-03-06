@@ -23,6 +23,7 @@
     "karma-junit-reporter" : "~0.1",
     "karma-jasmine" : "~0.1",
     "protractor" : "~0.17.0",
-    "node-mocks-http": "*"
+    "node-mocks-http": "*",
+    "mockgoose": "*"
   }
 }
