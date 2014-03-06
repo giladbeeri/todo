@@ -9,14 +9,13 @@ Tasks.prototype.sendAllTasks = function(res) {
         if (err) res.send(err);
         Task.findAll(function(err, tasks) {
             if (err) res.send(err);
-            res.json(tasks); 
+            res.json(tasks);
         }); 
     };
 };
 
 Tasks.prototype.read = function(req, res) {
-    // Use 'call' so the context would be Tasks.
-    this.sendAllTasks(res).call(this, null);
+    this.sendAllTasks(res)(null);
 };
 
 Tasks.prototype.create = function(req, res) {
