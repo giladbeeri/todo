@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Task = mongoose.model('Task');
 
 /*
  * GET home page.
  */
-Index = function(taskProvider) {
-    this.taskProvider = taskProvider;
+Index = function() {
 };
 
 Index.prototype.index = function(req, res) {
-    this.taskProvider.findAll(function(err, docs) {
+    Task.findAll(function(err, docs) {
         if (err) { res.send(500, 'Error: ' + err); }
         User.find({}, function(err, users) {
              if (err) { res.send(500, 'Error: ' + err); } 

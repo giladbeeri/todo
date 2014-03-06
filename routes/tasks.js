@@ -1,13 +1,13 @@
 var Const = require('../common/common').Const;
+var Task = require('mongoose').model('Task');
 
-Tasks = function(taskProvider) {
-    this.taskProvider = taskProvider;
+Tasks = function() {
 };
 
 Tasks.prototype.sendAllTasks = function(res) {
     return function(err) {
         if (err) res.send(err);
-        this.taskProvider.findAll(function(err, tasks) {
+        Task.findAll(function(err, tasks) {
             if (err) res.send(err);
             res.json(tasks); 
         }); 
@@ -20,7 +20,7 @@ Tasks.prototype.read = function(req, res) {
 };
 
 Tasks.prototype.create = function(req, res) {
-    this.taskProvider.save({
+    Task.save({
         content: req.body.content,
         isCompleted: false,
         owner: req.body.owner,
@@ -29,13 +29,13 @@ Tasks.prototype.create = function(req, res) {
 };
 
 Tasks.prototype.del = function(req, res) {
-    this.taskProvider.remove(
+    Task.remove(
         req.params[Const.TASK_ID_PARAM], 
         this.sendAllTasks(res).bind(this));
 };
 
 Tasks.prototype.update = function(req, res) {
-    this.taskProvider.update(req.params[Const.TASK_ID_PARAM], req.body, this.sendAllTasks(res).bind(this));
+    Task.update(req.params[Const.TASK_ID_PARAM], req.body, this.sendAllTasks(res).bind(this));
 };
 
 exports.Tasks = Tasks;
