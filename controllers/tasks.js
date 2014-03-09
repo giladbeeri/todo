@@ -1,25 +1,26 @@
 var Const = require('../common/common').Const;
-var Task = require('mongoose').model('Task');
 
-Tasks = function() {
+TaskController = function(Task) {
+    this.Task = Task;
 };
 
-Tasks.prototype.sendAllTasks = function(res) {
-    return function(err) {
+TaskController.prototype.sendAllTasks = function (res) {
+    var thisObj = this;
+    return function (err) {
         if (err) res.send(err);
-        Task.findAll(function(err, tasks) {
+        this.Task.findAll(function (err, tasks) {
             if (err) res.send(err);
             res.json(tasks);
         }); 
     };
 };
 
-Tasks.prototype.read = function(req, res) {
-    this.sendAllTasks(res)(null);
+TaskController.prototype.read = function (req, res) {
+    this.sendAllTasks(res).bind(this)(null);
 };
 
-Tasks.prototype.create = function(req, res) {
-    Task.save({
+TaskController.prototype.create = function (req, res) {
+    this.Task.save({
         content: req.body.content,
         isCompleted: false,
         owner: req.body.owner,
@@ -27,14 +28,14 @@ Tasks.prototype.create = function(req, res) {
     }, this.sendAllTasks(res).bind(this));
 };
 
-Tasks.prototype.del = function(req, res) {
-    Task.remove(
+TaskController.prototype.del = function (req, res) {
+    this.Task.remove(
         req.params[Const.TASK_ID_PARAM], 
         this.sendAllTasks(res).bind(this));
 };
 
-Tasks.prototype.update = function(req, res) {
-    Task.update(req.params[Const.TASK_ID_PARAM], req.body, this.sendAllTasks(res).bind(this));
+TaskController.prototype.update = function (req, res) {
+    this.Task.update(req.params[Const.TASK_ID_PARAM], req.body, this.sendAllTasks(res).bind(this));
 };
 
-exports.Tasks = Tasks;
+exports.TaskController = TaskController;

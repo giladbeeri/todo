@@ -6,14 +6,10 @@
 var express = require('express');
 var User = require('./models/user');
 var Task = require('./models/task');
-var routes = require('./routes');
-var index = require('./routes/index');
-var user = require('./routes/tasks');
+
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
-var Const = require('./common/common').Const;
-var Urls = require('./common/common').Urls;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
@@ -49,14 +45,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var indexRouter = new Index();
-var taskRouter = new Tasks();
-
-app.get(Urls.ROOT, indexRouter.index.bind(indexRouter)); 
-app.get(Urls.TASK_LIST, taskRouter.read.bind(taskRouter)); 
-app.post(Urls.TASK_LIST, taskRouter.create.bind(taskRouter));
-app.del(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.del.bind(taskRouter));
-app.put(Urls.TASK_LIST + ':' + Const.TASK_ID_PARAM, taskRouter.update.bind(taskRouter));
+require('./routes')(app, Task, User);
 
 // ******* Authentication *********
 passport.use(User.createStrategy());

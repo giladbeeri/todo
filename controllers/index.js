@@ -1,19 +1,19 @@
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Task = mongoose.model('Task');
-
-/*
- * GET home page.
- */
-Index = function() {
+IndexController = function (Task, User) {
+    this.Task = Task;
+    this.User = User;
 };
 
-Index.prototype.index = function(req, res) {
-    Task.findAll(function(err, docs) {
+/*
+ * GET /.
+ */
+
+IndexController.prototype.index = function (req, res) {
+    var thisObj = this;
+    this.Task.findAll(function (err, docs) {
         if (err) { res.send(500, 'Error: ' + err); }
-        User.find({}, function(err, users) {
+        thisObj.User.find({}, function (err, users) {
              if (err) { res.send(500, 'Error: ' + err); } 
-             var usernames = users.map(function(user) { return user.username; });
+             var usernames = users.map(function (user) { return user.username; });
              res.render('index.jade', {
                             title: 'Shared TODO',
                             tasks: docs,
@@ -25,4 +25,4 @@ Index.prototype.index = function(req, res) {
     });
 };
 
-exports.Index = Index;
+exports.IndexController = IndexController;
