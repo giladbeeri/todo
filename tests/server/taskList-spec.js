@@ -1,14 +1,14 @@
 var Const = require('../../common/common').Const;
-var Tasks = require('../../routes/tasks').Tasks;
+var Tasks = require('../../controllers/tasks').TaskController;
 var httpMocks = require('node-mocks-http');
 
-describe('Task Router', function() {
+describe('Task Ctrl', function() {
     defaultTasks = [
         {_id: 1, content: "Complete this project", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 3, 1) },
         {_id: 2, content: "Finish your homework", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 2, 28) },
         {_id: 3, content: "Go to sleep", owner: "John Doe", isCompleted: false, due_date: new Date() }
     ];
-    var taskRouter, req, res;
+    var taskCtrl, req, res;
     var Task = {
         tasks: [],
         
@@ -37,11 +37,11 @@ describe('Task Router', function() {
         req = httpMocks.createRequest();
         Task.tasks = [];
         Task.save(defaultTasks);
-        taskRouter = new Tasks();
+        taskCtrl = new TaskController(Task);
     });
     
     it('should read all tasks', function () {
-        taskRouter.read(Task)(null, res);
+        taskCtrl.read(null, res);
         var data = JSON.parse(res._getData());
         expect(data.length).toEqual(defaultTasks.length);
     });
@@ -52,7 +52,7 @@ describe('Task Router', function() {
             owner: "ME",
             due_date: new Date(0)
         };
-        taskRouter.create(Task)(req, res);
+        taskCtrl.create(req, res);
         var data = JSON.parse(res._getData());
         expect(data.length).toEqual(defaultTasks.length + 1);
         expect(data[defaultTasks.length].content).toEqual("HI");
