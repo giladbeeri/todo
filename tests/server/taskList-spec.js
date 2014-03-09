@@ -1,6 +1,7 @@
 var Const = require('../../common/common').Const;
-var Tasks = require('../../controllers/tasks').TaskController;
+var TaskController = require('../../controllers/tasks').TaskController;
 var httpMocks = require('node-mocks-http');
+var should = require('should');
 
 describe('Task Ctrl', function() {
     defaultTasks = [
@@ -29,7 +30,7 @@ describe('Task Ctrl', function() {
                 }
             });
             this.tasks = tasks;
-        },
+        }
     };
     
     beforeEach(function() {
@@ -43,7 +44,7 @@ describe('Task Ctrl', function() {
     it('should read all tasks', function () {
         taskCtrl.read(null, res);
         var data = JSON.parse(res._getData());
-        expect(data.length).toEqual(defaultTasks.length);
+        data.should.have.length(defaultTasks.length);
     });
     
     it('should create new tasks', function () {
@@ -54,9 +55,9 @@ describe('Task Ctrl', function() {
         };
         taskCtrl.create(req, res);
         var data = JSON.parse(res._getData());
-        expect(data.length).toEqual(defaultTasks.length + 1);
-        expect(data[defaultTasks.length].content).toEqual("HI");
-        expect(data[defaultTasks.length].owner).toEqual("ME");
+        data.should.have.length(defaultTasks.length + 1);
+        data[defaultTasks.length].content.should.equal('HI');
+        data[defaultTasks.length].owner.should.equal('ME');
     });
     
     it('should remove a task', function () {

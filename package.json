@@ -24,6 +24,8 @@
     "karma-jasmine" : "~0.1",
     "protractor" : "~0.17.0",
     "node-mocks-http": "*",
-    "mockgoose": "*"
+    "mockgoose": "*",
+    "mocha": "*",
+    "should": "*"
   }
 }
