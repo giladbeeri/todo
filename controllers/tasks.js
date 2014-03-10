@@ -5,7 +5,6 @@ TaskController = function(Task) {
 };
 
 TaskController.prototype.sendAllTasks = function (res) {
-    var thisObj = this;
     return function (err) {
         if (err) res.send(err);
         this.Task.findAll(function (err, tasks) {
