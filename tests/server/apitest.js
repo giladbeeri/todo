@@ -62,9 +62,11 @@ describe('/tasks', function () {
     });
 
     it('DELETE should delete only one task', function (done) {
+        defaultTasks.should.have.length(2); // Need to be greater than 1
         request(app)
             .del('/tasks/' + taskId.toString())
             .end(function (err, res) {
+                res.body.should.have.length(defaultTasks.length - 1);
                 done();
             });
     });
