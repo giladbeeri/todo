@@ -56,4 +56,29 @@ describe('Task model', function () {
             });
         });
     });
+
+    it('should update task with new data', function (done) {
+        Task.save(defaultTasks, function (err) {
+            Task.update(taskId.toString(), { content: 3 }, function () {
+                Task.findAll(function (err, tasks) {
+                    tasks.should.have.length(defaultTasks.length);
+                    tasks[0].should.have.property('content', 3);
+                    // Other tasks aren't changed
+                    tasks[1].should.have.property('content', 2);
+                    done();
+                });
+            });
+        });
+    });
+
+    xit('should toggle task from false to true', function (done) {
+        Task.save(defaultTasks, function (err) {
+            Task.toggleTask.bind(Task)(taskId.toString(), function () {
+                Task.findAll(function (err, tasks) {
+                    tasks[0].should.have.property('done', true);
+                    done();
+                });
+            });
+        });
+    });
 });
