@@ -27,7 +27,7 @@ Task.statics.save = function(tasks, callback) {
     });
 };
 
-Task.statics.remove = function(taskId, callback) {
+Task.statics.del = function(taskId, callback) {
     console.log("Task: Remove task #", taskId);
     this.remove({ _id: taskId }, function(err, tasks) {
        if (err) callback(err);
