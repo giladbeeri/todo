@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-    
+
 var Task = new Schema({
             content: String,
             owner: String, 
@@ -62,4 +62,11 @@ Task.statics.toggleTask = function(taskId, callback) {
         });
 };
 
-module.exports = mongoose.model('Task', Task);
+// This is an ugly patch to a problem with mongoose testing that I couldn't find a solution for.
+// See https://github.com/LearnBoost/mongoose/issues/1251.
+try {
+    module.exports = mongoose.model('Task', Task);
+} catch(err) {
+    module.exports = mongoose.model('Task');
+}
+
