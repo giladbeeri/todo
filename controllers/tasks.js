@@ -28,7 +28,7 @@ TaskController.prototype.create = function (req, res) {
 };
 
 TaskController.prototype.del = function (req, res) {
-    this.Task.remove(
+    this.Task.del(
         req.params[Const.TASK_ID_PARAM], 
         this.sendAllTasks(res).bind(this));
 };
