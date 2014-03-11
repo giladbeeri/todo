@@ -1,6 +1,6 @@
 var Const = require('../common/common').Const;
 
-TaskController = function(Task) {
+var TaskController = function(Task) {
     this.Task = Task;
 };
 
