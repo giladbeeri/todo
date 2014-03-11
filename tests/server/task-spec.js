@@ -33,7 +33,7 @@ describe('Task model', function () {
 
     it('should save and return all tasks', function (done) {
         Task.create(defaultTasks, function () {
-            Task.find({}, function (err, tasks) {
+            Task.find().sort('content').exec(function (err, tasks) {
                 tasks.should.have.length(defaultTasks.length);
                 tasks[0].should.have.property('content', 1);
                 tasks[1].should.have.property('content', 2);
@@ -57,13 +57,11 @@ describe('Task model', function () {
     it('should update task with new data', function (done) {
         Task.create(defaultTasks, function (err) {
             Task.findByIdAndUpdate(taskId, { content: 3 }, function () {
-                Task.find({}, function (err, tasks) {
+                Task.find().sort('content').exec(function (err, tasks) {
                     tasks.should.have.length(defaultTasks.length);
-                    var updatedTask = tasks[0]._id == taskId ? tasks[0] : tasks[1],
-                        notUpdatedTask = tasks[0]._id == taskId ? tasks[1] : tasks[0];
-                    updatedTask.should.have.property('content', 3);
+                    tasks[1].should.have.property('content', 3);
                     // Other tasks aren't changed
-                    notUpdatedTask.should.have.property('content', 2);
+                    tasks[0].should.have.property('content', 2);
                     done();
                 });
             });
