@@ -5,8 +5,11 @@ var Task = require('../../models/Task'),
 
 describe('Task model', function () {
     var conn;
-    var taskId = new ObjectId();
-    var defaultTasks = [{ _id: taskId, content: 1 }, { content: 2 }];
+    var taskId = new ObjectId('00112233445566778899AABB').toString();
+    var defaultTasks = [
+        { _id: taskId, content: 1 },
+        { content: 2 }
+    ];
 
     beforeEach(function (done) {
         /*
@@ -39,7 +42,7 @@ describe('Task model', function () {
             });
         });
     });
-/*
+
     it('should remove task by ID', function (done) {
         Task.create(defaultTasks, function (err) {
             Task.findByIdAndRemove(taskId.toString(), function () {
@@ -54,24 +57,39 @@ describe('Task model', function () {
 
     it('should update task with new data', function (done) {
         Task.create(defaultTasks, function (err) {
-            Task.findByIdAndUpdate(taskId.toString(), { content: 3 }, function () {
+            Task.findByIdAndUpdate(taskId, { content: 3 }, function () {
                 Task.find({}, function (err, tasks) {
                     tasks.should.have.length(defaultTasks.length);
-                    tasks[0].should.have.property('content', 3);
+                    var updatedTask = tasks[0]._id == taskId ? tasks[0] : tasks[1],
+                        notUpdatedTask = tasks[0]._id == taskId ? tasks[1] : tasks[0];
+                    updatedTask.should.have.property('content', 3);
                     // Other tasks aren't changed
-                    tasks[1].should.have.property('content', 2);
+                    notUpdatedTask.should.have.property('content', 2);
                     done();
                 });
             });
         });
     });
-*/
-    xit('should toggle task from false to true', function (done) {
+
+    it('should toggle task from false to true', function (done) {
         Task.create(defaultTasks, function (err) {
-            Task.toggleTask.bind(Task)(taskId.toString(), function () {
-                Task.find({}, function (err, tasks) {
-                    tasks[0].should.have.property('done', true);
+            Task.toggleTask(taskId, function () {
+                Task.findById(taskId, function (err, task) {
+                    task.should.have.property('done', true);
                     done();
+                });
+            });
+        });
+    });
+
+    it('should toggle task from true to false', function (done) {
+        Task.create(defaultTasks, function (err) {
+            Task.toggleTask(taskId, function () {
+                Task.toggleTask(taskId, function () {
+                    Task.findById(taskId, function (err, task) {
+                        task.should.have.property('done', false);
+                        done();
+                    });
                 });
             });
         });

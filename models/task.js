@@ -10,13 +10,14 @@ var Task = new Schema({
             });
 
 Task.statics.toggleTask = function(taskId, callback) {
-    this.find(
-        { _id: taskId },
+    this.findById(
+        taskId,
         'done',
-        function(err, tasks) {
-            if (err || !tasks) { callback(err, null); }
+        function(err, task) {
+            if (err || !task) { callback(err, null); }
             else {
-                this.findByIdAndUpdate(taskId, { done: !tasks[0].done }, callback);
+                task.done = !task.done;
+                task.save(callback);
             }    
         });
 };
