@@ -4,7 +4,7 @@ var httpMocks = require('node-mocks-http');
 var should = require('should');
 
 describe('Task Ctrl', function() {
-    defaultTasks = [
+    var defaultTasks = [
         {_id: 1, content: "Complete this project", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 3, 1) },
         {_id: 2, content: "Finish your homework", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 2, 28) },
         {_id: 3, content: "Go to sleep", owner: "John Doe", isCompleted: false, due_date: new Date() }
@@ -13,7 +13,7 @@ describe('Task Ctrl', function() {
     var Task = {
         tasks: [],
         
-        save: function(tasks, cb) {
+        saveTasks: function(tasks, cb) {
             if (typeof(tasks.length) == "undefined")
                 tasks = [tasks];
             this.tasks = this.tasks.concat(tasks);
@@ -37,7 +37,7 @@ describe('Task Ctrl', function() {
         res = httpMocks.createResponse();
         req = httpMocks.createRequest();
         Task.tasks = [];
-        Task.save(defaultTasks);
+        Task.saveTasks(defaultTasks);
         taskCtrl = new TaskController(Task);
     });
     

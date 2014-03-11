@@ -18,10 +18,12 @@ Task.statics.findAll = function(callback) {
     });
 };
 
-Task.statics.save = function(tasks, callback) {
+Task.statics.saveTasks = function(tasks, callback) {
+    console.log('Task: Saving task(s)');
     if (typeof(tasks.length) == "undefined")
         tasks = [tasks];
     this.create(tasks, function(err, tasks) {
+        console.log('E');
         if (err) callback(err);
         else callback(null, tasks);
     });

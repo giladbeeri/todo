@@ -19,7 +19,7 @@ TaskController.prototype.read = function (req, res) {
 };
 
 TaskController.prototype.create = function (req, res) {
-    this.Task.save({
+    this.Task.saveTasks({
         content: req.body.content,
         isCompleted: false,
         owner: req.body.owner,

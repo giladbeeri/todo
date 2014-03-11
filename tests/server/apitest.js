@@ -8,7 +8,10 @@ var request = require('supertest'),
 describe('/tasks', function () {
     var conn, app;
     var taskId = new ObjectId('00112233445566778899AABB');
-    var defaultTasks = [{ _id: taskId.toString(), content: 1 }, { content: 2 }];
+    var defaultTasks = [
+        { _id: taskId.toString(), content: 1 },
+        { content: 2 }
+    ];
 
     before(function (done) {
         app = express();
@@ -18,10 +21,13 @@ describe('/tasks', function () {
 
     beforeEach(function (done) {
         conn = mongoose.createConnection('mongodb://localhost:27017/tasklist-test');
+        conn.on('error', function (err) {
+            console.log(err);
+        });
         conn.on('open', function () {
             conn.db.dropDatabase(function () {
-                Task.save(defaultTasks, function (err) {
-                    done(err);
+                Task.saveTasks(defaultTasks, function () {
+                    done();
                 });
             });
         });
