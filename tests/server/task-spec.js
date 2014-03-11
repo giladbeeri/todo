@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     ObjectId = mongoose.Types.ObjectId;
-var Task = require('../../models/Task');
+var Task = require('../../models/Task'),
+    should = require('should');
 
 describe('Task model', function () {
     var conn;
@@ -15,27 +16,17 @@ describe('Task model', function () {
             process.exit(1);
         }
         */
-        conn = mongoose.createConnection('mongodb://localhost:27017/tasklist-test', function () {
-            console.log("A");
-            conn.db.dropDatabase(function () {
-                console.log("B");
-                Task.create(defaultTasks, function () {
-                    console.log("C");
-                    done();
-                });
-            });
-        });
-        conn.on('error', function (err) {
+        mongoose.connect('mongodb://localhost:27017/tasklist-test');
+        mongoose.connection.on('error', function (err) {
             console.log(err);
         });
-        /*conn.once('open', function () {
-            conn.db.dropDatabase(function () {
-                Task.create(defaultTasks, done);
-            });*/
+        mongoose.connection.once('connected', function () {
+            mongoose.connection.db.dropDatabase(done);
+        });
     });
 
     afterEach(function (done) {
-        conn.close(done);
+        mongoose.connection.close(done);
     });
 
     it('should save and return all tasks', function (done) {
