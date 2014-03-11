@@ -9,7 +9,7 @@ IndexController = function (Task, User) {
 
 IndexController.prototype.index = function (req, res) {
     var thisObj = this;
-    this.Task.findAll(function (err, docs) {
+    this.Task.find({}, function (err, docs) {
         if (err) { res.send(500, 'Error: ' + err); }
         thisObj.User.find({}, function (err, users) {
              if (err) { res.send(500, 'Error: ' + err); } 

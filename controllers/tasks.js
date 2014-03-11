@@ -7,8 +7,8 @@ TaskController = function(Task) {
 TaskController.prototype.sendAllTasks = function (res) {
     return function (err) {
         if (err) res.send(err);
-        this.Task.findAll(function (err, tasks) {
-            if (err) res.send(err);
+        this.Task.find({}, function (err, tasks) {
+            if (err) { res.send(err) };
             res.json(tasks);
         }); 
     };
@@ -19,22 +19,23 @@ TaskController.prototype.read = function (req, res) {
 };
 
 TaskController.prototype.create = function (req, res) {
-    this.Task.saveTasks({
-        content: req.body.content,
-        isCompleted: false,
-        owner: req.body.owner,
-        due_date: req.body.due_date
-    }, this.sendAllTasks(res).bind(this));
+    var task = new this.Task(
+        {
+            content: req.body.content,
+            owner: req.body.owner,
+            due_date: req.body.due_date
+        });
+    task.save(this.sendAllTasks(res).bind(this));
 };
 
 TaskController.prototype.del = function (req, res) {
-    this.Task.del(
+    this.Task.findByIdAndRemove(
         req.params[Const.TASK_ID_PARAM], 
         this.sendAllTasks(res).bind(this));
 };
 
 TaskController.prototype.update = function (req, res) {
-    this.Task.update(req.params[Const.TASK_ID_PARAM], req.body, this.sendAllTasks(res).bind(this));
+    this.Task.findByIdAndUpdate(req.params[Const.TASK_ID_PARAM], req.body, this.sendAllTasks(res).bind(this));
 };
 
 exports.TaskController = TaskController;

@@ -37,7 +37,7 @@ describe('Task Ctrl', function() {
         res = httpMocks.createResponse();
         req = httpMocks.createRequest();
         Task.tasks = [];
-        Task.saveTasks(defaultTasks);
+        Task.create(defaultTasks);
         taskCtrl = new TaskController(Task);
     });
     

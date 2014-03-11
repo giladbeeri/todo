@@ -26,9 +26,7 @@ describe('/tasks', function () {
         });
         conn.on('open', function () {
             conn.db.dropDatabase(function () {
-                Task.saveTasks(defaultTasks, function () {
-                    done();
-                });
+                Task.create(defaultTasks, done);
             });
         });
 

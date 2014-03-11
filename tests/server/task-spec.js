@@ -15,18 +15,23 @@ describe('Task model', function () {
             process.exit(1);
         }
         */
-        conn = mongoose.createConnection('mongodb://localhost:27017/tasklist-test');
-        console.log(conn.readyState);
-        conn.on('error', function (err) {
-            console.log(err);
-        });
-        conn.once('open', function () {
+        conn = mongoose.createConnection('mongodb://localhost:27017/tasklist-test', function () {
+            console.log("A");
             conn.db.dropDatabase(function () {
-                Task.saveTasks(defaultTasks, function () {
+                console.log("B");
+                Task.create(defaultTasks, function () {
+                    console.log("C");
                     done();
                 });
             });
         });
+        conn.on('error', function (err) {
+            console.log(err);
+        });
+        /*conn.once('open', function () {
+            conn.db.dropDatabase(function () {
+                Task.create(defaultTasks, done);
+            });*/
     });
 
     afterEach(function (done) {
@@ -34,8 +39,8 @@ describe('Task model', function () {
     });
 
     it('should save and return all tasks', function (done) {
-        Task.saveTasks(defaultTasks, function () {
-            Task.findAll(function (err, tasks) {
+        Task.create(defaultTasks, function () {
+            Task.find({}, function (err, tasks) {
                 tasks.should.have.length(defaultTasks.length);
                 tasks[0].should.have.property('content', 1);
                 tasks[1].should.have.property('content', 2);
@@ -45,9 +50,9 @@ describe('Task model', function () {
     });
 /*
     it('should remove task by ID', function (done) {
-        Task.saveTasks(defaultTasks, function (err) {
-            Task.del(taskId.toString(), function () {
-                Task.findAll(function (err, tasks) {
+        Task.create(defaultTasks, function (err) {
+            Task.findByIdAndRemove(taskId.toString(), function () {
+                Task.find({}, function (err, tasks) {
                     tasks.should.have.length(defaultTasks.length - 1);
                     tasks[0].should.have.property('content', 2);
                     done();
@@ -57,9 +62,9 @@ describe('Task model', function () {
     });
 
     it('should update task with new data', function (done) {
-        Task.saveTasks(defaultTasks, function (err) {
-            Task.update(taskId.toString(), { content: 3 }, function () {
-                Task.findAll(function (err, tasks) {
+        Task.create(defaultTasks, function (err) {
+            Task.findByIdAndUpdate(taskId.toString(), { content: 3 }, function () {
+                Task.find({}, function (err, tasks) {
                     tasks.should.have.length(defaultTasks.length);
                     tasks[0].should.have.property('content', 3);
                     // Other tasks aren't changed
@@ -71,9 +76,9 @@ describe('Task model', function () {
     });
 */
     xit('should toggle task from false to true', function (done) {
-        Task.saveTasks(defaultTasks, function (err) {
+        Task.create(defaultTasks, function (err) {
             Task.toggleTask.bind(Task)(taskId.toString(), function () {
-                Task.findAll(function (err, tasks) {
+                Task.find({}, function (err, tasks) {
                     tasks[0].should.have.property('done', true);
                     done();
                 });
