@@ -7,6 +7,7 @@ var express = require('express');
 var User = require('./models/user');
 var Task = require('./models/task');
 
+var Const = require('./common/common').Const;
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
@@ -100,7 +101,7 @@ app.get('/logout', function(req, res) {
 
 // ******* Authentication - end *********
 
-mongoose.connect('mongodb://localhost:27017/node-mongo-todo');
+mongoose.connect(Const.DB_URI);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
