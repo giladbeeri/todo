@@ -2,7 +2,7 @@ var passport = require('passport');
 var fs = require('fs');
 var mustache = require('mustache');
 
-var loginResgiterRoute = function(req, res, options) {
+var loginRegisterRoute = function(req, res, options) {
     fs.readFile('./views/login_register_template.mustache', { encoding: 'utf8' }, function(err, data) {
         if (err) {
             console.error(err.stack);
@@ -15,11 +15,11 @@ var loginResgiterRoute = function(req, res, options) {
 
 module.exports = function (app, User) {
     app.get('/login', function(req, res) {
-        loginResgiterRoute(req, res, { action: 'login', title: 'Sign in', rememberMe: true });
+        loginRegisterRoute(req, res, { action: 'login', title: 'Sign in', rememberMe: true });
     });
 
     app.get('/register', function(req, res) {
-        loginResgiterRoute(req, res, { action: 'register', title: 'Register', rememberMe: false });
+        loginRegisterRoute(req, res, { action: 'register', title: 'Register', rememberMe: false });
     });
 
     app.post('/login', passport.authenticate('local',
