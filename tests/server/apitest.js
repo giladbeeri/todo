@@ -74,6 +74,9 @@ describe('/tasks', function () {
             .del('/tasks/' + taskId.toString())
             .end(function (err, res) {
                 res.body.should.have.length(defaultTasks.length - 1);
+                res.body.forEach(function (task) {
+                    task.should.not.have.property('_id', taskId);
+                });
                 done();
             });
     });
