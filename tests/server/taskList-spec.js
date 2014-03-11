@@ -1,6 +1,6 @@
 var Const = require('../../common/common').Const;
-var TaskController = require('../../controllers/tasks').TaskController,
-    Task = require('../../models/task');
+var Task = require('../../models/task'),
+    taskCtrl = require('../../controllers/tasks')(Task);
 var httpMocks = require('node-mocks-http');
 var should = require('should'),
     sinon = require('sinon');
@@ -11,7 +11,7 @@ describe('Task Ctrl', function() {
         {_id: 2, content: "Finish your homework", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 2, 28) },
         {_id: 3, content: "Go to sleep", owner: "John Doe", isCompleted: false, due_date: new Date() }
     ];
-    var taskCtrl, req, res, TaskMock;
+    var req, res, TaskMock;
     /*var Task = {
         tasks: [],
         
@@ -38,7 +38,6 @@ describe('Task Ctrl', function() {
     beforeEach(function() {
         res = httpMocks.createResponse();
         req = httpMocks.createRequest();
-        taskCtrl = new TaskController(Task)
 
         TaskMock = sinon.mock(Task);
         var findExpectation = TaskMock.expects('find');
