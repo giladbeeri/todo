@@ -1,7 +1,9 @@
 var Const = require('../../common/common').Const;
-var TaskController = require('../../controllers/tasks').TaskController;
+var TaskController = require('../../controllers/tasks').TaskController,
+    Task = require('../../models/task');
 var httpMocks = require('node-mocks-http');
-var should = require('should');
+var should = require('should'),
+    sinon = require('sinon');
 
 describe('Task Ctrl', function() {
     var defaultTasks = [
@@ -9,8 +11,8 @@ describe('Task Ctrl', function() {
         {_id: 2, content: "Finish your homework", owner: "John Doe", isCompleted: false, due_date: new Date(2014, 2, 28) },
         {_id: 3, content: "Go to sleep", owner: "John Doe", isCompleted: false, due_date: new Date() }
     ];
-    var taskCtrl, req, res;
-    var Task = {
+    var taskCtrl, req, res, TaskMock;
+    /*var Task = {
         tasks: [],
         
         saveTasks: function(tasks, cb) {
@@ -31,23 +33,30 @@ describe('Task Ctrl', function() {
             });
             this.tasks = tasks;
         }
-    };
+    };*/
     
     beforeEach(function() {
         res = httpMocks.createResponse();
         req = httpMocks.createRequest();
-        Task.tasks = [];
-        Task.create(defaultTasks);
-        taskCtrl = new TaskController(Task);
+        taskCtrl = new TaskController(Task)
+
+        TaskMock = sinon.mock(Task);
+        var findExpectation = TaskMock.expects('find');
+        // Check Task.find is called without conditions, and only once.
+        findExpectation.once().withArgs({});
+        // Call the callback with (null, defaultTasks)
+        findExpectation.callsArgWith(1, null, defaultTasks);
     });
     
     it('should read all tasks', function () {
         taskCtrl.read(null, res);
         var data = JSON.parse(res._getData());
         data.should.have.length(defaultTasks.length);
+
+        TaskMock.verify();
     });
-    
-    it('should create new tasks', function () {
+    /*
+    it('should create a new task', function () {
         req.body = {
             content: "HI",
             owner: "ME",
@@ -55,13 +64,14 @@ describe('Task Ctrl', function() {
         };
         taskCtrl.create(req, res);
         var data = JSON.parse(res._getData());
-        data.should.have.length(defaultTasks.length + 1);
-        data[defaultTasks.length].content.should.equal('HI');
-        data[defaultTasks.length].owner.should.equal('ME');
+        data.should.have.length(1);
+        data[0].content.should.equal('HI');
+        data[0].owner.should.equal('ME');
+        TaskMock.verify();
     });
-    
+
     it('should remove a task', function () {
         req.params[Const.TASK_ID_PARAM] = 1;
         
-    });
+    });*/
 });

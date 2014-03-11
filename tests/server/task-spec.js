@@ -4,7 +4,6 @@ var Task = require('../../models/Task'),
     should = require('should');
 
 describe('Task model', function () {
-    var conn;
     var taskId = new ObjectId('00112233445566778899AABB').toString();
     var defaultTasks = [
         { _id: taskId, content: 1 },

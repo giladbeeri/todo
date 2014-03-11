@@ -6,12 +6,13 @@ var request = require('supertest'),
     should = require('should');
 
 describe('/tasks', function () {
-    var conn, app;
-    var taskId = new ObjectId('00112233445566778899AABB');
+    var app;
+    var taskId = new ObjectId('00112233445566778899AABB').toString();
     var defaultTasks = [
-        { _id: taskId.toString(), content: 1 },
+        { _id: taskId, content: 1 },
         { content: 2 }
     ];
+
 
     before(function (done) {
         app = express();
@@ -20,20 +21,19 @@ describe('/tasks', function () {
     });
 
     beforeEach(function (done) {
-        conn = mongoose.createConnection('mongodb://localhost:27017/tasklist-test');
-        conn.on('error', function (err) {
+        mongoose.connect('mongodb://localhost:27017/tasklist-test');
+        mongoose.connection.on('error', function (err) {
             console.log(err);
         });
-        conn.on('open', function () {
-            conn.db.dropDatabase(function () {
+        mongoose.connection.once('connected', function () {
+            mongoose.connection.db.dropDatabase(function () {
                 Task.create(defaultTasks, done);
             });
         });
-
     });
 
     afterEach(function (done) {
-        conn.close(done);
+        mongoose.connection.close(done);
     });
 
     it('should be indifferent to ending slashes', function (done) {
@@ -66,7 +66,10 @@ describe('/tasks', function () {
     });
 
     it('DELETE should delete only one task', function (done) {
-        defaultTasks.should.have.length(2); // Need to be greater than 1
+        // Need to be greater than 1
+        defaultTasks.should.not.have.length(0);
+        defaultTasks.should.not.have.length(1);
+
         request(app)
             .del('/tasks/' + taskId.toString())
             .end(function (err, res) {
