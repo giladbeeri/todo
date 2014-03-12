@@ -80,4 +80,18 @@ describe('users ', function () {
                      done();
                  });
     });
+
+    it('should be able to logout', function (done) {
+        request(app)
+            .get('/logout')
+            .expect(302)
+            .end(function (err, res) {
+                     if (err) {
+                         console.error(res.text);
+                         return done(err);
+                     }
+                     res.header['location'].should.include('/');
+                     done();
+                 });
+    });
 });
