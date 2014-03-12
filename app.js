@@ -12,7 +12,6 @@ var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var app = express();
 
@@ -44,14 +43,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// ******* Authentication *********
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-// ******* Authentication - end *********
 
-require('./routes')(app, Task, User);
-
+require('./routes')(app, passport, Task, User);
 
 mongoose.connect(Const.DB_URI);
 

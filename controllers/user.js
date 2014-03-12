@@ -1,8 +1,7 @@
-var passport = require('passport');
 var fs = require('fs');
 var mustache = require('mustache');
 
-module.exports = function (User) {
+module.exports = function (passport, User) {
     var loginRegisterRoute = function(req, res, options) {
         fs.readFile('./views/login_register_template.mustache',
                     { encoding: 'utf8' },
@@ -25,19 +24,14 @@ module.exports = function (User) {
                            { action: 'register', title: 'Register', rememberMe: false });
     };
 
-    var login = function (req, res) {
-        passport.authenticate(
+    var login =  passport.authenticate(
             'local',
             { session: true,
                 successRedirect: '/',
                 failureRedirect: '/login',
                 failureFlash: true,
                 successFlash: 'Welcome aboard!'
-            }),
-            function(req, res) {
-                console.log('Authenticated ' + req.user.username);
-            }
-    };
+            });
 
     var register = function (req, res) {
         var user = new User({ username: req.body.username });
@@ -57,7 +51,7 @@ module.exports = function (User) {
 
     return {
         getLoginPage: getLoginPage,
-        gRegisterPage: getRegisterPage,
+        getRegisterPage: getRegisterPage,
         login: login,
         register: register,
         logout: logout

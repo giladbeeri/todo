@@ -1,5 +1,5 @@
-module.exports = function (app, User) {
-    var userController = require('../controllers/user')(User);
+module.exports = function (app, passport, User) {
+    var userController = require('../controllers/user')(passport, User);
 
     app.get('/login', userController.getLoginPage);
     app.get('/register', userController.getRegisterPage);
