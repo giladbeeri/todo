@@ -42,11 +42,7 @@ app.use(express.static(path.join(__dirname, 'routes')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
+require('./config/passport')(passport, User);
 require('./routes')(app, passport, Task, User);
 
 mongoose.connect(Const.DB_URI);

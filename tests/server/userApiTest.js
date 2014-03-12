@@ -21,9 +21,7 @@ describe('users ', function () {
         app.use(passport.session());
         app.use(flash());
         app.use(express.bodyParser());
-        passport.use(User.createStrategy());
-        passport.serializeUser(User.serializeUser());
-        passport.deserializeUser(User.deserializeUser());
+        require('../../config/passport')(passport, User);
         require('../../routes/users')(app, passport, User);
         done();
     });
