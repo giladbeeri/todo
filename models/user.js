@@ -11,7 +11,7 @@ var UserSchema = new Schema({
 
 UserSchema.plugin(plm, { usernameLowerCase: true });
 
-var User = mongoose.model('User', User);
+var User = mongoose.model('User', UserSchema);
 module.exports = User;
 
 // This is an ugly patch to a problem with mongoose testing that I couldn't find a solution for.

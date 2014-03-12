@@ -22,7 +22,7 @@ TaskSchema.statics.toggleTask = function(taskId, callback) {
         });
 };
 
-var Task = mongoose.model('Task', Task);
+var Task = mongoose.model('Task', TaskSchema);
 module.exports = Task;
 
 // This is an ugly patch to a problem with mongoose testing that I couldn't find a solution for.
