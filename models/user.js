@@ -9,6 +9,12 @@ var User = new Schema({
     */
 });
 
-User.plugin(plm, { usernameLowerCase: true }); 
+User.plugin(plm, { usernameLowerCase: true });
 
-module.exports = mongoose.model('User', User);
+// This is an ugly patch to a problem with mongoose testing that I couldn't find a solution for.
+// See https://github.com/LearnBoost/mongoose/issues/1251.
+try {
+    module.exports = mongoose.model('User', User);
+} catch(err) {
+    module.exports = mongoose.model('User');
+}
