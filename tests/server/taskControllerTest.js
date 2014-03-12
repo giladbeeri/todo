@@ -1,4 +1,4 @@
-var Const = require('../../common/common').Const;
+var Const = require('../../config/common').Const;
 var Task = require('../../models/task'),
     taskCtrl = require('../../controllers/task')(Task);
 var httpMocks = require('node-mocks-http');

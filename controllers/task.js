@@ -1,4 +1,4 @@
-var Const = require('../common/common').Const;
+var Const = require('../config/common').Const;
 
 module.exports = function(Task) {
     var sendAllTasks = function (res) {

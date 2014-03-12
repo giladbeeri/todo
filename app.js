@@ -7,7 +7,7 @@ var express = require('express');
 var User = require('./models/user');
 var Task = require('./models/task');
 
-var Const = require('./common/common').Const;
+var Const = require('./config/common').Const;
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');

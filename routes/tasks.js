@@ -1,5 +1,5 @@
-var Const = require('../common/common').Const;
-var Urls = require('../common/common').Urls;
+var Const = require('../config/common').Const;
+var Urls = require('../config/common').Urls;
 
 module.exports = function (app, Task) {
     var taskController = require('../controllers/task')(Task);
