@@ -24,7 +24,7 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('keyboard cat'));
+app.use(express.cookieParser('This is a secret string used for signing cookies. It belongs to my tasklist application'));
 app.use(express.session());
 app.use(flash());
 app.use(passport.initialize());
