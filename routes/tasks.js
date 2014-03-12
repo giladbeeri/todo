@@ -2,7 +2,7 @@ var Const = require('../common/common').Const;
 var Urls = require('../common/common').Urls;
 
 module.exports = function (app, Task) {
-    var taskController = require('../controllers/tasks')(Task);
+    var taskController = require('../controllers/task')(Task);
     
     app.get(Urls.TASK_LIST, taskController.read);
     app.post(Urls.TASK_LIST, taskController.create);

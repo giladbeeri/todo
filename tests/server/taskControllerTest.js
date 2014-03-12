@@ -1,6 +1,6 @@
 var Const = require('../../common/common').Const;
 var Task = require('../../models/task'),
-    taskCtrl = require('../../controllers/tasks')(Task);
+    taskCtrl = require('../../controllers/task')(Task);
 var httpMocks = require('node-mocks-http');
 var should = require('should'),
     sinon = require('sinon');

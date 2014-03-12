@@ -5,5 +5,5 @@ module.exports = function (app, Task, User) {
     app.get(Urls.ROOT, indexController.index);
     
     require('./tasks')(app, Task);
-    require('./user')(app, User);
+    require('./users')(app, User);
 };
