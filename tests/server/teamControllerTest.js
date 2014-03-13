@@ -46,4 +46,25 @@ describe('Team Ctrl', function() {
 
         TeamMock.verify();
     });
+
+    it('should create a new team and return it', function () {
+        var TEAM_NAME = 'Turtles';
+        var team = new Team({ name: TEAM_NAME });
+
+        // Expect new document creation
+        var ctorExpectation = TeamMock.expects('Team');
+        ctorExpectation.once();
+        ctorExpectation.returns(team);
+        // Expect the document to be saved
+        var teamMock = sinon.mock(team);
+        var saveExpectation = teamMock.expects('save');
+        saveExpectation.once();
+        saveExpectation.callsArgWith(0, null, team);
+
+        teamCtrl.create(req, res);
+
+        var data = JSON.parse(res._getData());
+        data.should.have.property('name', TEAM_NAME);
+        TeamMock.verify();
+    });
 });

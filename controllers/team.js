@@ -13,8 +13,17 @@ module.exports = function (Team) {
         });
     };
 
+    var create = function (req, res) {
+        var team = new Team({ name: req.body.name });
+        team.save(function (err, team) {
+            if (err) { res.send(500, err); }
+            res.json(team);
+        });
+    };
+
     return {
         readAll: readAll,
-        read: read
+        read: read,
+        create: create
     };
 };
