@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
 var Team = new Schema(
     {
-        name: { type: String, required: true, unique: true },
+        name: { type: String, required: true, unique: true, index: true },
         members: [{ type: Schema.Types.ObjectId, ref: 'User'}]
     });
 
