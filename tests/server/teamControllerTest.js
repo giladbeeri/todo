@@ -18,7 +18,7 @@ describe('Team Ctrl', function() {
         TeamMock.restore();
     });
 
-    it('should read all teams', function () {
+    it('should return all teams', function () {
         var findExpectation = TeamMock.expects('find');
         findExpectation.once();
         // Call the callback with (null, defaultTasks)
@@ -26,6 +26,23 @@ describe('Team Ctrl', function() {
         teamCtrl.readAll(null, res);
         var data = JSON.parse(res._getData());
         data.should.have.length(2);
+        data[0].should.eql('aa');
+        data[1].should.eql('bb');
+
+        TeamMock.verify();
+    });
+
+    it('should return a team by its id', function () {
+        var ID = 5;
+        var findByIdExpectation = TeamMock.expects('findById');
+        findByIdExpectation.once();
+        findByIdExpectation.callsArgWith(1, null, { _id: ID, data: 'aa' });
+
+        teamCtrl.read(req, res);
+
+        var data = JSON.parse(res._getData());
+        data.should.have.property('_id', ID);
+        data.should.have.property('data', 'aa');
 
         TeamMock.verify();
     });
