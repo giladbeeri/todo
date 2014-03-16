@@ -105,8 +105,18 @@ describe('Team model', function () {
 
         });
 
-        xit('should avoid duplicate users', function (done) {
-
+        it('should avoid duplicate users', function (done) {
+            var OID = new ObjectId();
+            var MEMBERS = [OID];
+            team.members = MEMBERS;
+            team.save(function (err, team) {
+                if (err) { console.error(err); }
+                team.addMembers([OID], function (err, team) {
+                    team.members.should.have.length(1);
+                    team.members.toString().should.eql(MEMBERS.toString());
+                    done();
+                });
+            });
         });
     });
 });
