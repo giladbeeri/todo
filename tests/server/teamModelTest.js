@@ -11,6 +11,7 @@ describe('Team model', function () {
         USER2 = 'testUser2',
         PASS2 = 'testPass2';
     var TEAM_NAME = 'Power Rangers';
+    var team;
 
     before(function (done) {
         mongoose.connect('mongodb://localhost:27017/tasklist-test');
@@ -27,6 +28,7 @@ describe('Team model', function () {
     });
 
     beforeEach(function (done) {
+        team = new Team({ name: TEAM_NAME });
         Team.remove({}, function (err) {
             if (err) { console.error(err); }
             done();
@@ -41,7 +43,6 @@ describe('Team model', function () {
 
     describe('creation', function (done) {
         it('should save a new team', function (done) {
-            var team = new Team({ name: TEAM_NAME });
             team.save(function () {
                 Team.find(function (err, teams) {
                     if (err) {
@@ -56,8 +57,8 @@ describe('Team model', function () {
             });
         });
 
-        it('should not be created without a name', function (done) {
-            var team = new Team();
+        it('should be created with a name', function (done) {
+            team = new Team();
             team.save(function (err, team) {
                 should.exist(err);
                 err.name.should.eql('ValidationError');
@@ -66,7 +67,6 @@ describe('Team model', function () {
         });
 
         xit('should have a unique name', function (done) {
-            var team = new Team({ name: TEAM_NAME });
             team.save(function () {
                 var team2 = new Team({ name: TEAM_NAME });
                 team2.save(function (err) {
@@ -82,6 +82,31 @@ describe('Team model', function () {
                     });
                 });
             });
+        });
+    });
+
+    describe('member addition', function (done) {
+        it('should add new members to an empty team', function (done) {
+            var MEMBERS = [new ObjectId()];
+            team.save(function (err, team) {
+                if (err) { console.error(err); }
+                team.addMembers(MEMBERS, function (err, team) {
+                    team.members.toString().should.eql(MEMBERS.toString());
+                    done();
+                });
+            });
+        });
+
+        xit('should verify new members are users', function (done) {
+
+        });
+
+        xit('should add new members to a non-empty team', function (done) {
+
+        });
+
+        xit('should avoid duplicate users', function (done) {
+
         });
     });
 });
