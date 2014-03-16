@@ -49,25 +49,23 @@ describe('Team Ctrl', function() {
     });
 
     it('should create a new team and return it', function () {
+        var TeamMock = function (teamDetails) {
+            this.name = teamDetails.name;
+            this.saved = false;
+        };
+        TeamMock.prototype.save = function (cb) {
+            this.saved = true;
+            cb(null, this);
+        };
+
         var TEAM_NAME = 'Turtles';
-        var team = new Team({ name: TEAM_NAME });
-
-        var stub = sinon.stub(Team, 'Team');
-        stub.returns(team);
-        // Expect new document creation
-        //var ctorExpectation = TeamMock.expects('Team');
-        //ctorExpectation.once();
-        //ctorExpectation.returns(team);
-        // Expect the document to be saved
-        var teamMock = sinon.mock(team);
-        var saveExpectation = teamMock.expects('save');
-        saveExpectation.once();
-        saveExpectation.callsArgWith(0, null, team);
-
+        var team = new TeamMock({ name: TEAM_NAME });
+        req.body.name = TEAM_NAME;
+        var teamCtrl = require('../../controllers/team')(TeamMock);
         teamCtrl.create(req, res);
 
         var data = JSON.parse(res._getData());
         data.should.have.property('name', TEAM_NAME);
-        TeamMock.verify();
+        data.saved.should.be.true;
     });
 });
