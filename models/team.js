@@ -1,12 +1,15 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    _ = require('underscore');
+    _ = require('underscore'),
+    idvalidator = require('mongoose-id-validator');
 
 var Team = new Schema(
     {
         name: { type: String, required: true, unique: true, index: true },
-        members: [{ type: Schema.Types.ObjectId, ref: 'User'}]
+        members: [{ type: Schema.Types.ObjectId, ref: 'User' }]
     });
+
+Team.plugin(idvalidator);
 
 Team.methods.addMembers = function (members, cb) {
     this.members = _.union(this.members, members);

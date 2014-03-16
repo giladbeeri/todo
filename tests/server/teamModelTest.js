@@ -11,7 +11,7 @@ describe('Team model', function () {
         USER2 = 'testUser2',
         PASS2 = 'testPass2';
     var TEAM_NAME = 'Power Rangers';
-    var team;
+    var team, user1, user2;
 
     before(function (done) {
         mongoose.connect('mongodb://localhost:27017/tasklist-test');
@@ -20,8 +20,8 @@ describe('Team model', function () {
         });
         mongoose.connection.once('connected', function () {
             mongoose.connection.db.dropDatabase(function () {
-                var user1 = new User({ username: USER1, password: PASS1}),
-                    user2 = new User({ username: USER2, password: PASS2});
+                user1 = new User({ username: USER1, password: PASS1});
+                user2 = new User({ username: USER2, password: PASS2});
                 User.create([user1, user2], done);
             });
         });
@@ -87,7 +87,7 @@ describe('Team model', function () {
 
     describe('member addition', function (done) {
         it('should add new members to an empty team', function (done) {
-            var MEMBERS = [new ObjectId()];
+            var MEMBERS = [user1._id];
             team.save(function (err, team) {
                 if (err) { console.error(err); }
                 team.addMembers(MEMBERS, function (err, team) {
@@ -97,27 +97,30 @@ describe('Team model', function () {
             });
         });
 
-        xit('should verify new members are users', function (done) {
-
+        it('should not allow members that aren\'t users', function (done) {
+            team.addMembers([new ObjectId()], function (err, team) {
+                should.exist(err);
+                err.name.should.eql('ValidationError');
+                err.errors.members.path.should.eql('members');
+                done();
+            });
         });
 
         it('should add new members to a non-empty team', function (done) {
-            var OID1 = new ObjectId(),
-                OID2 = new ObjectId();
-            var MEMBERS = [OID1];
+            var MEMBERS = [user1._id];
             team.members = MEMBERS;
             team.save(function (err, team) {
                 if (err) { console.error(err); }
-                team.addMembers([OID2], function (err, team) {
+                team.addMembers([user2._id], function (err, team) {
                     team.members.should.have.length(2);
-                    team.members.toString().should.eql([OID1, OID2].toString());
+                    team.members.toString().should.eql([user1._id, user2._id].toString());
                     done();
                 });
             });
         });
 
         it('should avoid duplicate users', function (done) {
-            var OID = new ObjectId();
+            var OID = user1._id
             var MEMBERS = [OID];
             team.members = MEMBERS;
             team.save(function (err, team) {
