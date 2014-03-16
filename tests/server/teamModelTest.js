@@ -9,7 +9,9 @@ describe('Team model', function () {
     var USER1 = 'testUser1',
         PASS1 = 'testPass1',
         USER2 = 'testUser2',
-        PASS2 = 'testPass2';
+        PASS2 = 'testPass2',
+        USER3 = 'testUser3',
+        PASS3 = 'testPass3';
     var TEAM_NAME = 'Power Rangers';
     var team, user1, user2;
 
@@ -22,7 +24,8 @@ describe('Team model', function () {
             mongoose.connection.db.dropDatabase(function () {
                 user1 = new User({ username: USER1, password: PASS1});
                 user2 = new User({ username: USER2, password: PASS2});
-                User.create([user1, user2], done);
+                user3 = new User({ username: USER3, password: PASS3});
+                User.create([user1, user2, user3], done);
             });
         });
     });
@@ -128,6 +131,19 @@ describe('Team model', function () {
                 team.addMembers([OID], function (err, team) {
                     team.members.should.have.length(1);
                     team.members.toString().should.eql(MEMBERS.toString());
+                    done();
+                });
+            });
+        });
+    });
+
+    describe('member removal', function (done) {
+        it('should remove users from a team', function (done) {
+            team.members = [user1._id, user2._id, user3._id];
+            team.save(function (err, team) {
+                team.removeMembers([user1._id, user3._id], function (err, team) {
+                    team.members.should.have.length(1);
+                    team.members[0].toString().should.eql(user2._id.toString());
                     done();
                 });
             });

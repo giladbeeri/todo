@@ -16,6 +16,11 @@ Team.methods.addMembers = function (members, cb) {
     this.save(cb);
 };
 
+Team.methods.removeMembers = function (members, cb) {
+    this.members = _.difference(this.members, members);
+    this.save(cb);
+};
+
 // This is an ugly patch to a problem with mongoose testing that I couldn't find a solution for.
 // See https://github.com/LearnBoost/mongoose/issues/1251.
 try {
