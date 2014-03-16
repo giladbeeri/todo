@@ -7,16 +7,17 @@
     "test": "make test"
   },
   "dependencies": {
-    "express": "3.4.8",
-    "jade": "*",
-    "stylus": "*",
-    "mongodb": ">= 0.9.6-7",
-    "mongoose": "~3.8.8",
-    "passport": "~0.2.0",
-    "passport-local": "*",
-    "passport-local-mongoose": "*",
-    "connect-flash": "*",
-    "mustache": "*"
+      "express": "3.4.8",
+      "jade": "*",
+      "stylus": "*",
+      "mongodb": ">= 0.9.6-7",
+      "mongoose": "~3.8.8",
+      "passport": "~0.2.0",
+      "passport-local": "*",
+      "passport-local-mongoose": "*",
+      "connect-flash": "*",
+      "mustache": "*",
+      "underscore": "*"
   },
   "devDependencies": {
       "phantomjs" : "~1.9",
