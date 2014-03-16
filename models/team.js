@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     _ = require('underscore'),
-    idvalidator = require('mongoose-id-validator');
+    idValidator = require('mongoose-id-validator');
 
 var Team = new Schema(
     {
@@ -9,7 +9,7 @@ var Team = new Schema(
         members: [{ type: Schema.Types.ObjectId, ref: 'User' }]
     });
 
-Team.plugin(idvalidator);
+Team.plugin(idValidator);
 
 Team.methods.addMembers = function (members, cb) {
     this.members = _.union(this.members, members);
