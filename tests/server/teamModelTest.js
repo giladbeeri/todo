@@ -101,8 +101,19 @@ describe('Team model', function () {
 
         });
 
-        xit('should add new members to a non-empty team', function (done) {
-
+        it('should add new members to a non-empty team', function (done) {
+            var OID1 = new ObjectId(),
+                OID2 = new ObjectId();
+            var MEMBERS = [OID1];
+            team.members = MEMBERS;
+            team.save(function (err, team) {
+                if (err) { console.error(err); }
+                team.addMembers([OID2], function (err, team) {
+                    team.members.should.have.length(2);
+                    team.members.toString().should.eql([OID1, OID2].toString());
+                    done();
+                });
+            });
         });
 
         it('should avoid duplicate users', function (done) {
