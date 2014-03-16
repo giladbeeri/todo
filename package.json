@@ -17,7 +17,8 @@
       "passport-local-mongoose": "*",
       "connect-flash": "*",
       "mustache": "*",
-      "underscore": "*"
+      "underscore": "*",
+      "mongoose-id-validator": "*"
   },
   "devDependencies": {
       "phantomjs" : "~1.9",
