@@ -35,9 +35,10 @@ describe('Team Ctrl', function() {
     it('should return a team by its id', function () {
         var ID = 5;
         var findByIdExpectation = TeamMock.expects('findById');
-        findByIdExpectation.once();
-        findByIdExpectation.callsArgWith(1, null, { _id: ID, data: 'aa' });
-
+        findByIdExpectation.once()
+            .withArgs(ID)
+            .callsArgWith(1, null, { _id: ID, data: 'aa' });
+        req.body.id = ID;
         teamCtrl.read(req, res);
 
         var data = JSON.parse(res._getData());
@@ -51,10 +52,12 @@ describe('Team Ctrl', function() {
         var TEAM_NAME = 'Turtles';
         var team = new Team({ name: TEAM_NAME });
 
+        var stub = sinon.stub(Team, 'Team');
+        stub.returns(team);
         // Expect new document creation
-        var ctorExpectation = TeamMock.expects('Team');
-        ctorExpectation.once();
-        ctorExpectation.returns(team);
+        //var ctorExpectation = TeamMock.expects('Team');
+        //ctorExpectation.once();
+        //ctorExpectation.returns(team);
         // Expect the document to be saved
         var teamMock = sinon.mock(team);
         var saveExpectation = teamMock.expects('save');
