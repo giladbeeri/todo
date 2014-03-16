@@ -26,8 +26,7 @@ module.exports = function (Team) {
     var addMembers = function (req, res) {
         Team.findById(req.body.id, function (err, team) {
             if (err) { res.send(500, err); }
-            team.members = _.union(team.members, req.body.members);
-            team.save(function (err, updatedTeam) {
+            team.addMembers(req.body.members, function (err, updatedTeam) {
                 if (err) { res.send(500, err); }
                 res.json(updatedTeam);
             });

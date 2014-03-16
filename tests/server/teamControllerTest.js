@@ -1,18 +1,19 @@
 var Const = require('../../config/common').Const;
-var Team = require('../../models/team'),
-    teamCtrl = require('../../controllers/team')(Team);
+var Team = require('../../models/team');
 var httpMocks = require('node-mocks-http');
 var should = require('should'),
-    sinon = require('sinon');
+    sinon = require('sinon'),
+    ObjectId = require('mongoose').Types.ObjectId;
 
 describe('Team Ctrl', function() {
-    var req, res, TeamMock, ID;
+    var req, res, TeamMock, ID, teamCtrl;
 
     beforeEach(function() {
         res = httpMocks.createResponse();
         req = httpMocks.createRequest();
         TeamMock = sinon.mock(Team);
         ID = 5;
+        teamCtrl = require('../../controllers/team')(Team);
     });
 
     afterEach(function () {
@@ -20,8 +21,8 @@ describe('Team Ctrl', function() {
     });
 
     it('should return all teams', function () {
-        var findExpectation = TeamMock.expects('find');
-        findExpectation.once();
+        var findExpectation = TeamMock.expects('find')
+            .once();
         // Call the callback with (null, defaultTasks)
         findExpectation.callsArgWith(0, null, ['aa', 'bb']);
         teamCtrl.readAll(null, res);
@@ -34,8 +35,8 @@ describe('Team Ctrl', function() {
     });
 
     it('should return a team by its id', function () {
-        var findByIdExpectation = TeamMock.expects('findById');
-        findByIdExpectation.once()
+        var findByIdExpectation = TeamMock.expects('findById')
+            .once()
             .withArgs(ID)
             .callsArgWith(1, null, { _id: ID, data: 'aa' });
         req.body.id = ID;
@@ -70,18 +71,27 @@ describe('Team Ctrl', function() {
     });
 
     it('should add new members', function () {
-        var MEMBERS = ['John', 'Doe'];
-        var findByIdExpectation = TeamMock.expects('findById');
-        findByIdExpectation.once()
+        var MEMBERS = [new ObjectId(), new ObjectId()];
+        var TEAM = {
+            _id: ID,
+            members: [],
+            addMembers: function (members, cb) {
+                this.members = this.members.concat(members);
+                cb(null, this);
+            }
+        };
+
+        var findByIdExpectation = TeamMock.expects('findById')
+            .once()
             .withArgs(ID)
-            .callsArgWith(1, null,
-                          {
-                              _id: ID,
-                              members: [],
-                              save: function (cb) {
-                                  cb(null, this);
-                              }
-                          });
+            .callsArgWith(1, null, TEAM);
+
+        // Here I tried to expect a call to addMembers, in different ways,
+        // but I couldn't make sinon allow 2 expectations. I was getting:
+        // "TypeError: Cannot read property 'restore' of undefined"
+        // when I tried to set var addMembersExpectation = TeamMock.expects('addMembers').
+        // Also, other methods I tried didn't work.
+
         req.body.id = ID;
         req.body.members = MEMBERS;
 
@@ -89,7 +99,7 @@ describe('Team Ctrl', function() {
 
         var data = JSON.parse(res._getData());
         data.should.have.property('_id', ID);
-        data.should.have.property('members', MEMBERS);
+        data.members.toString().should.eql(MEMBERS.toString());
 
         TeamMock.verify();
     });
