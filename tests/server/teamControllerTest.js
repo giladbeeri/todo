@@ -6,12 +6,13 @@ var should = require('should'),
     sinon = require('sinon');
 
 describe('Team Ctrl', function() {
-    var req, res, TeamMock;
+    var req, res, TeamMock, ID;
 
     beforeEach(function() {
         res = httpMocks.createResponse();
         req = httpMocks.createRequest();
         TeamMock = sinon.mock(Team);
+        ID = 5;
     });
 
     afterEach(function () {
@@ -33,7 +34,6 @@ describe('Team Ctrl', function() {
     });
 
     it('should return a team by its id', function () {
-        var ID = 5;
         var findByIdExpectation = TeamMock.expects('findById');
         findByIdExpectation.once()
             .withArgs(ID)
@@ -67,5 +67,30 @@ describe('Team Ctrl', function() {
         var data = JSON.parse(res._getData());
         data.should.have.property('name', TEAM_NAME);
         data.saved.should.be.true;
+    });
+
+    it('should add new members', function () {
+        var MEMBERS = ['John', 'Doe'];
+        var findByIdExpectation = TeamMock.expects('findById');
+        findByIdExpectation.once()
+            .withArgs(ID)
+            .callsArgWith(1, null,
+                          {
+                              _id: ID,
+                              members: [],
+                              save: function (cb) {
+                                  cb(null, this);
+                              }
+                          });
+        req.body.id = ID;
+        req.body.members = MEMBERS;
+
+        teamCtrl.addMembers(req, res);
+
+        var data = JSON.parse(res._getData());
+        data.should.have.property('_id', ID);
+        data.should.have.property('members', MEMBERS);
+
+        TeamMock.verify();
     });
 });
