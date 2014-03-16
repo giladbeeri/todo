@@ -120,7 +120,7 @@ describe('Team model', function () {
         });
 
         it('should avoid duplicate users', function (done) {
-            var OID = user1._id
+            var OID = user1._id;
             var MEMBERS = [OID];
             team.members = MEMBERS;
             team.save(function (err, team) {
@@ -131,6 +131,14 @@ describe('Team model', function () {
                     done();
                 });
             });
+        });
+
+        xit('should remove a deleted user from its teams', function (done) {
+            console.error('Not implemented!');
+            true.should.be.false;
+
+            team.members = [user1._id, user2._id];
+            team.save(done);
         });
     });
 });
