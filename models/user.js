@@ -1,3 +1,5 @@
+// Check Drywall, a complete user management library based on passport
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     plm = require('passport-local-mongoose');
