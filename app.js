@@ -6,6 +6,7 @@
 var express = require('express');
 var User = require('./models/user');
 var Task = require('./models/task');
+var Team = require('./models/team');
 
 var Const = require('./config/common').Const;
 var http = require('http');
@@ -43,7 +44,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 require('./config/passport')(passport, User);
-require('./routes')(app, passport, Task, User);
+require('./routes')(app, passport, Task, User, Team);
 
 mongoose.connect(Const.DB_URI);
 
