@@ -33,10 +33,21 @@ module.exports = function (Team) {
         });
     };
 
+    var removeMembers = function (req, res) {
+        Team.findById(req.body.id, function (err, team) {
+            if (err) { res.send(500, err); }
+            team.removeMembers(req.body.members, function (err, updatedTeam) {
+                if (err) { res.send(500, err); }
+                res.json(updatedTeam);
+            });
+        });
+    };
+
     return {
         readAll: readAll,
         read: read,
         create: create,
-        addMembers: addMembers
+        addMembers: addMembers,
+        removeMembers: removeMembers
     };
 };

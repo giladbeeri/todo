@@ -3,7 +3,8 @@ var Team = require('../../models/team');
 var httpMocks = require('node-mocks-http');
 var should = require('should'),
     sinon = require('sinon'),
-    ObjectId = require('mongoose').Types.ObjectId;
+    ObjectId = require('mongoose').Types.ObjectId,
+    _ = require('underscore');
 
 describe('Team Ctrl', function() {
     var req, res, TeamMock, ID, teamCtrl;
@@ -100,6 +101,39 @@ describe('Team Ctrl', function() {
         var data = JSON.parse(res._getData());
         data.should.have.property('_id', ID);
         data.members.toString().should.eql(MEMBERS.toString());
+
+        TeamMock.verify();
+    });
+
+    it('should remove members from a team', function () {
+        var OID1 = new ObjectId(),
+            OID2 = new ObjectId(),
+            OID3 = new ObjectId();
+        var MEMBERS = [OID1, OID2, OID3];
+
+        var TEAM = {
+            _id: ID,
+            members: MEMBERS,
+            removeMembers: function (members, cb) {
+                this.members = _.difference(this.members, members);
+                cb(null, this);
+            }
+        };
+
+        var findByIdExpectation = TeamMock.expects('findById')
+            .once()
+            .withArgs(ID)
+            .callsArgWith(1, null, TEAM);
+
+        req.body.id = ID;
+        req.body.members = [OID1, OID3];
+
+        teamCtrl.removeMembers(req, res);
+
+        var data = JSON.parse(res._getData());
+        data.should.have.property('_id', ID);
+        data.members.should.have.length(1);
+        data.members.toString().should.eql([OID2].toString());
 
         TeamMock.verify();
     });
