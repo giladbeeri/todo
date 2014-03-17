@@ -23,24 +23,22 @@ module.exports = function (Team) {
         });
     };
 
-    var addMembers = function (req, res) {
+    var changeMembers = function (req, res, func) {
         Team.findById(req.body.id, function (err, team) {
             if (err) { res.send(500, err); }
-            team.addMembers(req.body.members, function (err, updatedTeam) {
+            team[func](req.body.members, function (err, updatedTeam) {
                 if (err) { res.send(500, err); }
                 res.json(updatedTeam);
             });
         });
     };
 
+    var addMembers = function (req, res) {
+        changeMembers(req, res, 'addMembers');
+    };
+
     var removeMembers = function (req, res) {
-        Team.findById(req.body.id, function (err, team) {
-            if (err) { res.send(500, err); }
-            team.removeMembers(req.body.members, function (err, updatedTeam) {
-                if (err) { res.send(500, err); }
-                res.json(updatedTeam);
-            });
-        });
+        changeMembers(req, res, 'removeMembers');
     };
 
     return {
