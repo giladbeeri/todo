@@ -23,6 +23,13 @@ module.exports = function (Team) {
         });
     };
 
+    var del = function (req, res) {
+        Team.findByIdAndRemove(req.body.id, function (err, team) {
+            if (err) { res.send(500, err); }
+            res.json(team);
+        });
+    };
+
     var changeMembers = function (req, res, func) {
         Team.findById(req.body.id, function (err, team) {
             if (err) { res.send(500, err); }
@@ -45,6 +52,7 @@ module.exports = function (Team) {
         readAll: readAll,
         read: read,
         create: create,
+        del: del,
         addMembers: addMembers,
         removeMembers: removeMembers
     };

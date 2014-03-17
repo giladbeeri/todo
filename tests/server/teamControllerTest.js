@@ -137,4 +137,19 @@ describe('Team Ctrl', function() {
 
         TeamMock.verify();
     });
+
+    it('should delete a team', function () {
+        var findByIdAndRemoveExpectation = TeamMock.expects('findByIdAndRemove')
+            .once()
+            .withArgs(ID)
+            .callsArgWith(1, null, { _id: ID, data: 'aa' });
+        req.body.id = ID;
+        teamCtrl.del(req, res);
+
+        var data = JSON.parse(res._getData());
+        data.should.have.property('_id', ID);
+        data.should.have.property('data', 'aa');
+
+        TeamMock.verify();
+    });
 });
