@@ -43,7 +43,7 @@ describe('/teams', function () {
         mongoose.connection.close(done);
     });
 
-    it('should read all teams', function (done) {
+    it('GET should read all teams', function (done) {
         request(app)
             .get('/teams')
             .expect(200)
@@ -55,14 +55,15 @@ describe('/teams', function () {
                  });
     });
 
-    xit('GET should return all tasks', function (done) {
+    it('GET should return a specific team', function (done) {
         request(app)
-            .get('/tasks/')
+            .get('/teams/' + teams[0]._id.toString())
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
                      if (err) { return done(err); }
-                     res.body.should.have.length(defaultTasks.length);
+                     res.body.should.have.property('_id', teams[0]._id.toString());
+                     res.body.should.have.property('members');
                      done();
                  });
     });

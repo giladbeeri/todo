@@ -40,7 +40,7 @@ describe('Team Ctrl', function() {
             .once()
             .withArgs(ID)
             .callsArgWith(1, null, { _id: ID, data: 'aa' });
-        req.body.id = ID;
+        req.params['id'] = ID;
         teamCtrl.read(req, res);
 
         var data = JSON.parse(res._getData());
