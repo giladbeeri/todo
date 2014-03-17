@@ -3,10 +3,11 @@ var request = require('supertest'),
     mongoose = require('mongoose'),
     ObjectId = mongoose.Types.ObjectId,
     Team = require('../../models/team'),
+    User = require('../../models/user'),
     should = require('should');
 
 describe('/teams', function () {
-    var app;
+    var app, teams, user1, user2, user;
 
     before(function (done) {
         app = express();
@@ -21,7 +22,19 @@ describe('/teams', function () {
         });
         mongoose.connection.once('connected', function () {
             mongoose.connection.db.dropDatabase(function () {
-                done();
+                user1 = new User({ username: 'Carmelo Anthony', password: 'CA'});
+                user2 = new User({ username: 'Tyson Chandler', password: 'TC'});
+                user3 = new User({ username: 'Kenyon Martin', password: 'KM'});
+                User.create([user1, user2, user3], function () {
+                    teams = [
+                        new Team({ name: 'Nicks' }),
+                        new Team({ name: 'Bulls' }),
+                        new Team({ name: '76ers' }),
+                        new Team({ name: 'Clippers' })
+                    ];
+                    teams[0].members = [user1, user2, user3];
+                    Team.create(teams, done);
+                });
             });
         });
     });
@@ -30,8 +43,16 @@ describe('/teams', function () {
         mongoose.connection.close(done);
     });
 
-    xit('should be indifferent to ending slashes', function (done) {
-
+    it('should read all teams', function (done) {
+        request(app)
+            .get('/teams')
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                     if (err) { return done(err); }
+                     res.body.should.have.length(teams.length);
+                     done();
+                 });
     });
 
     xit('GET should return all tasks', function (done) {
