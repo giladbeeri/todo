@@ -13,7 +13,7 @@ describe('Team model', function () {
         USER3 = 'testUser3',
         PASS3 = 'testPass3';
     var TEAM_NAME = 'Power Rangers';
-    var team, user1, user2;
+    var team, user1, user2, user3;
 
     before(function (done) {
         mongoose.connect('mongodb://localhost:27017/tasklist-test');
