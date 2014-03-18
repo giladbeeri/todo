@@ -3,4 +3,5 @@ module.exports = function (app, Team) {
 
     app.get('/teams', teamController.readAll);
     app.get('/teams/:id', teamController.read);
+    app.del('/teams/:id', teamController.del);
 };

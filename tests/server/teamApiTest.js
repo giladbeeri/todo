@@ -7,7 +7,7 @@ var request = require('supertest'),
     should = require('should');
 
 describe('/teams', function () {
-    var app, teams, user1, user2, user;
+    var app, defaultTeams, user1, user2, user;
 
     before(function (done) {
         app = express();
@@ -26,14 +26,14 @@ describe('/teams', function () {
                 user2 = new User({ username: 'Tyson Chandler', password: 'TC'});
                 user3 = new User({ username: 'Kenyon Martin', password: 'KM'});
                 User.create([user1, user2, user3], function () {
-                    teams = [
+                    defaultTeams = [
                         new Team({ name: 'Nicks' }),
                         new Team({ name: 'Bulls' }),
                         new Team({ name: '76ers' }),
                         new Team({ name: 'Clippers' })
                     ];
-                    teams[0].members = [user1, user2, user3];
-                    Team.create(teams, done);
+                    defaultTeams[0].members = [user1, user2, user3];
+                    Team.create(defaultTeams, done);
                 });
             });
         });
@@ -50,37 +50,38 @@ describe('/teams', function () {
             .expect('Content-Type', /json/)
             .end(function (err, res) {
                      if (err) { return done(err); }
-                     res.body.should.have.length(teams.length);
+                     res.body.should.have.length(defaultTeams.length);
                      done();
                  });
     });
 
     it('GET should return a specific team', function (done) {
         request(app)
-            .get('/teams/' + teams[0]._id.toString())
+            .get('/teams/' + defaultTeams[0]._id.toString())
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
                      if (err) { return done(err); }
-                     res.body.should.have.property('_id', teams[0]._id.toString());
+                     res.body.should.have.property('_id', defaultTeams[0]._id.toString());
                      res.body.should.have.property('members');
                      done();
                  });
     });
 
-    xit('DELETE should delete only one task', function (done) {
+    it('DELETE should delete only one team', function (done) {
         // Need to be greater than 1
-        defaultTasks.should.not.have.length(0);
-        defaultTasks.should.not.have.length(1);
-
+        defaultTeams.should.not.have.length(0);
+        defaultTeams.should.not.have.length(1);
+        var ID = defaultTeams[1]._id.toString();
         request(app)
-            .del('/tasks/' + taskId.toString())
+            .del('/teams/' + ID)
             .end(function (err, res) {
-                     res.body.should.have.length(defaultTasks.length - 1);
-                     res.body.forEach(function (task) {
-                         task.should.not.have.property('_id', taskId);
+                     res.body.should.have.property('_id', ID);
+                     Team.find(function (err, teams) {
+                        if (err) { res.send(500, err); }
+                        teams.should.have.length(defaultTeams.length - 1);
+                        done();
                      });
-                     done();
                  });
     });
 });

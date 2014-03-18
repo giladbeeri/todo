@@ -24,7 +24,7 @@ module.exports = function (Team) {
     };
 
     var del = function (req, res) {
-        Team.findByIdAndRemove(req.body.id, function (err, team) {
+        Team.findByIdAndRemove(req.params['id'], function (err, team) {
             if (err) { res.send(500, err); }
             res.json(team);
         });
