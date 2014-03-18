@@ -91,6 +91,23 @@ describe('/teams', function () {
             });
     });
 
+    it('POST should create a new team', function (done) {
+        var NAME = 'Kings';
+        request(app)
+            .post('/teams')
+            .send({ name: NAME })
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(
+            function (err, res) {
+                res.body.should.have.property('_id');
+                res.body.should.have.property('name', NAME);
+                res.body.should.have.property('members');
+                res.body.members.should.have.length(0);
+                done();
+            });
+    });
+
     describe('/teams/id/members', function (done) {
         it('POST /members should add new members', function (done) {
             var testedTeam = defaultTeams[1];
