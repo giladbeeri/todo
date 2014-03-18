@@ -31,7 +31,7 @@ module.exports = function (Team) {
     };
 
     var changeMembers = function (req, res, func) {
-        Team.findById(req.body.id, function (err, team) {
+        Team.findById(req.params['id'], function (err, team) {
             if (err) { res.send(500, err); }
             team[func](req.body.members, function (err, updatedTeam) {
                 if (err) { res.send(500, err); }

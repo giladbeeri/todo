@@ -7,10 +7,11 @@ var request = require('supertest'),
     should = require('should');
 
 describe('/teams', function () {
-    var app, defaultTeams, user1, user2, user;
+    var app, defaultTeams, user1, user2, user3;
 
     before(function (done) {
         app = express();
+        app.use(express.bodyParser());
         require('../../routes/teams')(app, Team);
         done();
     });
@@ -48,11 +49,12 @@ describe('/teams', function () {
             .get('/teams')
             .expect(200)
             .expect('Content-Type', /json/)
-            .end(function (err, res) {
-                     if (err) { return done(err); }
-                     res.body.should.have.length(defaultTeams.length);
-                     done();
-                 });
+            .end(
+            function (err, res) {
+                if (err) { return done(err); }
+                res.body.should.have.length(defaultTeams.length);
+                done();
+            });
     });
 
     it('GET should return a specific team', function (done) {
@@ -60,12 +62,13 @@ describe('/teams', function () {
             .get('/teams/' + defaultTeams[0]._id.toString())
             .expect('Content-Type', /json/)
             .expect(200)
-            .end(function (err, res) {
-                     if (err) { return done(err); }
-                     res.body.should.have.property('_id', defaultTeams[0]._id.toString());
-                     res.body.should.have.property('members');
-                     done();
-                 });
+            .end(
+            function (err, res) {
+                if (err) { return done(err); }
+                res.body.should.have.property('_id', defaultTeams[0]._id.toString());
+                res.body.should.have.property('members');
+                done();
+            });
     });
 
     it('DELETE should delete only one team', function (done) {
@@ -75,13 +78,35 @@ describe('/teams', function () {
         var ID = defaultTeams[1]._id.toString();
         request(app)
             .del('/teams/' + ID)
-            .end(function (err, res) {
-                     res.body.should.have.property('_id', ID);
-                     Team.find(function (err, teams) {
-                        if (err) { res.send(500, err); }
-                        teams.should.have.length(defaultTeams.length - 1);
-                        done();
-                     });
-                 });
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(
+            function (err, res) {
+                res.body.should.have.property('_id', ID);
+                Team.find(function (err, teams) {
+                    if (err) { res.send(500, err); }
+                    teams.should.have.length(defaultTeams.length - 1);
+                    done();
+                });
+            });
+    });
+
+    describe('/teams/id/members', function (done) {
+        it('POST /members should add new members', function (done) {
+            var testedTeam = defaultTeams[1];
+            var originalMembersCount = testedTeam.members.length;
+            var newMembers = [user1._id, user2._id];
+            request(app)
+                .post('/teams/' + testedTeam._id.toString() + '/members')
+                .send({ members: newMembers })
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end(
+                function (err, res) {
+                    res.body.should.have.property('members');
+                    res.body.members.should.have.length(originalMembersCount + newMembers.length);
+                    done();
+                });
+        });
     });
 });

@@ -81,7 +81,6 @@ describe('Team Ctrl', function() {
                 cb(null, this);
             }
         };
-
         var findByIdExpectation = TeamMock.expects('findById')
             .once()
             .withArgs(ID)
@@ -93,7 +92,7 @@ describe('Team Ctrl', function() {
         // when I tried to set var addMembersExpectation = TeamMock.expects('addMembers').
         // Also, other methods I tried didn't work.
 
-        req.body.id = ID;
+        req.params.id = ID;
         req.body.members = MEMBERS;
 
         teamCtrl.addMembers(req, res);
@@ -125,7 +124,7 @@ describe('Team Ctrl', function() {
             .withArgs(ID)
             .callsArgWith(1, null, TEAM);
 
-        req.body.id = ID;
+        req.params.id = ID;
         req.body.members = [OID1, OID3];
 
         teamCtrl.removeMembers(req, res);
