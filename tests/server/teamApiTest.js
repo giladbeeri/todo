@@ -125,5 +125,23 @@ describe('/teams', function () {
                     done();
                 });
         });
+
+        it('DELETE /members should remove members', function (done) {
+            var testedTeam = defaultTeams[0];
+            var originalMembersCount = testedTeam.members.length;
+            var removedMembers = [user1._id];
+
+            request(app)
+                .del('/teams/' + testedTeam._id.toString() + '/members')
+                .send({ members: removedMembers })
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end(
+                function (err, res) {
+                    res.body.should.have.property('members');
+                    res.body.members.should.have.length(originalMembersCount - removedMembers.length);
+                    done();
+                });
+        });
     });
 });

@@ -6,4 +6,6 @@ module.exports = function (app, Team) {
     app.get('/teams/:id', teamController.read);
     app.del('/teams/:id', teamController.del);
     app.post('/teams/:id/members', teamController.addMembers);
+    // DELETE is usually used to delete a resource, here it is used to remove members from a team.
+    app.del('/teams/:id/members', teamController.removeMembers);
 };

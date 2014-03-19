@@ -17,7 +17,9 @@ Team.methods.addMembers = function (members, cb) {
 };
 
 Team.methods.removeMembers = function (members, cb) {
-    this.members = _.difference(this.members, members);
+    members.forEach(function (elem) {
+        this.members.pull(elem);
+    }, this);
     this.save(cb);
 };
 
